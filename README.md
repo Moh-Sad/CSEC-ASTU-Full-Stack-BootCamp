@@ -28,4 +28,18 @@ We kicked off the BootCamp by diving into **Git** and **GitHub**:
 
 ---
 
-Stay tuned for more updates as I continue exploring Full-Stack Development in the BootCamp!
+## Day 3: HTML, CSS, Flexbox, and Grid
+
+On Day 3, we learned about the **basics of HTML and CSS**, their definitions, structure, and use. Here's a quick summary:  
+- **HTML**: The standard language for creating web pages, defining their structure and content.  
+- **CSS**: Used for styling HTML elements, making web pages visually appealing.  
+
+### Key Topics:
+- **Flexbox and Grid**: Techniques for creating flexible and responsive layouts.  
+- **Responsive Design**: Ensuring websites look good and function well on various devices and screen sizes.
+
+We also solved **practice exercises** to strengthen our understanding of these concepts.  
+
+---
+
+Stay tuned for more updates as I continue exploring Full-Stack Development in the BootCamp! 
