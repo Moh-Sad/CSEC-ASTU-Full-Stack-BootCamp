@@ -146,6 +146,7 @@ header .menu {
     grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     padding: 10px;
+    justify-content: center;
 }
 
 .card {
@@ -154,10 +155,18 @@ header .menu {
     border-radius: 25px;
     gap: 10px;
     padding: 10px;
+    background-color: white;
 }
 
 .images{
     width: 250px;
-    display: flex;
+    justify-content: center;
     align-items: center;
+}
+
+#price {
+    background-color: green;
+    flex: 1;
+    justify-content: end;
+    width: 60px;
 }
