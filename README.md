@@ -32,19 +32,19 @@ We kicked off the BootCamp by diving into **Git** and **GitHub**:
 
 Today, we outlined the exciting journey ahead in the BootCamp. The curriculum covers a wide range of essential technologies for full-stack development:
 
-* **Front-End:**
-    * **HTML:** Structure and content of web pages.
-    * **CSS:** Styling and presentation of web pages.
-    * **JavaScript:** Dynamic behavior and interactivity on web pages.
-    * **React:** A popular JavaScript library for building user interfaces.
-    * **Next.js:** A React framework for building server-rendered and statically generated websites and applications.
+### Front-End:
+- **HTML:** Structure and content of web pages.
+- **CSS:** Styling and presentation of web pages.
+- **JavaScript:** Dynamic behavior and interactivity on web pages.
+- **React:** A popular JavaScript library for building user interfaces.
+- **Next.js:** A React framework for building server-rendered and statically generated websites and applications.
 
-* **Back-End:**
-    * **Node.js:** JavaScript runtime environment for building server-side applications.
-    * **Express.js:** A fast and minimalist web application framework for Node.js.
+### Back-End:
+- **Node.js:** JavaScript runtime environment for building server-side applications.
+- **Express.js:** A fast and minimalist web application framework for Node.js.
 
-* **Database:**
-    * **MySQL:** A popular open-source relational database management system.
+### Database:
+- **MySQL:** A popular open-source relational database management system.
 
 ---
 
@@ -76,4 +76,30 @@ We also completed a task to prepare a **responsive navbar and card layout** to c
 
 ---
 
-Stay tuned for more updates as I continue exploring Full-Stack Development in the BootCamp!
+## Day 5: Basics of JavaScript and ES6 Features
+
+Today, we dove into the basics of **JavaScript** and explored the features introduced in **ES6**. Here's a summary of what we learned:
+
+### Key Concepts:
+- **Scope in JavaScript**:  
+  - **Global Scope**: Variables accessible from anywhere in the code.  
+  - **Local Scope**: Variables declared within a block, function, or module, limited to that context.  
+
+- **`let` vs. `const` vs. `var`**:  
+  - **`let`**: Block-scoped, can be reassigned.  
+  - **`const`**: Block-scoped, must be initialized and cannot be reassigned.  
+  - **`var`**: Function-scoped, has hoisting behavior.
+
+- **Logical Operators**:  
+  - **`==` (Equality Operator)**: Compares values after type coercion.  
+  - **`===` (Strict Equality Operator)**: Compares values without type coercion (checks both value and type).  
+
+### Tasks and Exercises:
+- Solved a **swapping variables** task.  
+- Practiced **verbal and practical problem-solving** by answering and implementing JavaScript-related questions.
+
+This hands-on practice helped reinforce our understanding of JavaScript's foundational concepts. Looking forward to building more interactive applications as we progress!  
+
+---
+
+Stay tuned for more updates as I continue exploring Full-Stack Development in the BootCamp!  
