@@ -102,4 +102,27 @@ This hands-on practice helped reinforce our understanding of JavaScript's founda
 
 ---
 
+## Day 6: JavaScript DOM Manipulation
+
+On Day 6, we explored the **Document Object Model (DOM)** and learned how to manipulate it using JavaScript.  
+
+### Key Topics Covered:
+- **Understanding the DOM**: The structured representation of HTML as nodes and objects.  
+- **DOM Methods**:  
+  - **`querySelector`**: Selects the first matching element.  
+  - **`querySelectorAll`**: Selects all matching elements.  
+  - **`getElementById`**: Selects an element by its ID.  
+  - **`getElementsByClassName`**: Selects elements by their class name.  
+
+- **Event Handling**:  
+  - **`onclick`**: Handling click events dynamically.  
+
+### Practical Exercises:
+- Practiced changing **`innerHTML`** dynamically using **`onclick`** and **`querySelector`**.  
+
+### Task Pending:
+- We will complete a task to create an interactive feature where users input email and password details, and JavaScript validates and displays them dynamically using DOM manipulation.
+
+---
+
 Stay tuned for more updates as I continue exploring Full-Stack Development in the BootCamp!  
