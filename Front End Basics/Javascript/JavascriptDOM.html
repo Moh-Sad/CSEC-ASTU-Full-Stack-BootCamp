@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 id="DOM">CSEC ASTU</h1>
+    <button id="button1">CSEC LAB</button>
+    <button id="button2">Changed</button>
+    <button id="button3">Welcome</button>
+    <button id="button4">Return</button>
+
+<script>
+    document.getElementById("button1").onclick = function() {
+        document.getElementById("DOM").innerHTML = "CSEC LAB";
+    }
+    document.getElementById("button2").onclick = function() {
+        document.getElementById("DOM").innerHTML = "Changed";
+    }
+    document.getElementById("button3").onclick = function() {
+        document.getElementById("DOM").innerHTML = "Welcome";
+    }
+    document.getElementById("button4").onclick = function() {
+        document.getElementById("DOM").innerHTML = "CSEC ASTU";
+    }
+</script>
+</body>
+</html>
