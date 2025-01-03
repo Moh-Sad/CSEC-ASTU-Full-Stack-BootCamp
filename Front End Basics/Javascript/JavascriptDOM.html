@@ -4,13 +4,53 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        h1 {
+            text-align: center;
+            justify-content: center;
+            color: blue;
+        }
+        body{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 20px;
+            background-color: lightgray;
+            height:100vh;
+        }
+        #buttons{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+        button {
+            padding: 10px;
+            background-color: blue;
+            color: white;
+            border: none;
+            cursor: pointer;
+            flex-grow: 1;
+        }
+        button:hover {
+            background-color: green;
+        }
+    </style>
 </head>
 <body>
     <h1 id="DOM">CSEC ASTU</h1>
-    <button id="button1">CSEC LAB</button>
-    <button id="button2">Changed</button>
-    <button id="button3">Welcome</button>
-    <button id="button4">Return</button>
+    <div id="buttons">
+        <button id="button1">CSEC LAB</button>
+        <button id="button2">Changed</button>
+        <button id="button3">Welcome</button>
+        <button id="button4">Return</button>
+    </div>
 
 <script>
     document.getElementById("button1").onclick = function() {
