@@ -57,6 +57,7 @@ option{
     height: 38px;
     border-radius: 5px;
     border-width: 1px;
+    border: solid 1px gray;
 }
 #search-button{
     position: absolute;
@@ -86,9 +87,8 @@ option{
     margin-left: 22px;
     width: 420px;
     height: 20px;
-    color: gray;
 }
-#checkbox{
+.checkbox{
     display: flex;
     justify-content: center;
     align-items: center;
@@ -96,8 +96,14 @@ option{
     width: 26px;
     height: 26px;
     border-radius: 2px;
-    background-color: #6C63FF;
 }
 .search-div{
     display: flex;
+}
+#test{
+    color: gray;
+    text-decoration: line-through;
+}
+#test2{
+    background-color: #6C63FF;
 }
