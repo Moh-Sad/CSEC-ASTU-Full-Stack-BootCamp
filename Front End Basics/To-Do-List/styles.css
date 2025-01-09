@@ -22,6 +22,7 @@ h1 {
     display: flex;
     gap: 10px;
     margin-top: 20px;
+    margin-bottom: 30px;
 }
 #select-list{
     display: flex;
@@ -33,9 +34,20 @@ h1 {
     background-color: #6C63FF;
     color: white;
 }
-option{
-    width: 32px;
-    height: 18px;
+#select-list option{
+    width: 22px;
+    height: 22px;
+    background-color: white;
+    color: #6C63FF;
+}
+#select-list:hover{
+    cursor: url('./images/cursor\ icon.png'), auto;
+    background-color: #6159fa;
+}
+#select-list option:hover{
+    cursor: url('./images/cursor\ icon.png'), auto;
+    background-color: rgba(255, 255, 255, 0.692);
+
 }
 #mode-toggle{
     display: flex;
@@ -52,17 +64,30 @@ option{
     width: 22px;
     height: 22px;
 }
+#mode-toggle:hover{
+    cursor: url('./images/cursor\ icon.png'), auto;
+    background-color: #6159fa;
+}
+.search-div{
+    display: flex;
+}
 #search-box{
     width: 595px;
     height: 38px;
     border-radius: 5px;
     border-width: 1px;
     border: solid 1px gray;
+    padding-left: 16px;
+    color: #6C63FF;
+}
+#search-box:focus{
+    outline: none;
+    border: solid 1px #6C63FF;
 }
 #search-button{
     position: absolute;
     margin-top: 10px;
-    margin-left: 560px;
+    margin-left: 575px;
     height: 21px;
     width: 21px;
     background-color: none;
@@ -79,7 +104,6 @@ option{
 .note-box{
     display: flex;
     justify-content: end;
-    margin-top: 30px;
     margin-left: 325px;
 }
 .note-box > p{
@@ -87,6 +111,15 @@ option{
     margin-left: 22px;
     width: 420px;
     height: 20px;
+}
+hr {
+    border: none;
+    border-top: 1px solid gray;
+    width: 520px;
+    opacity: 50%;
+    margin-left: 325px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 .checkbox{
     display: flex;
@@ -97,12 +130,40 @@ option{
     height: 26px;
     border-radius: 2px;
 }
-.search-div{
-    display: flex;
-}
 .edit-delete{
     display: flex;
     gap: 10px;
+}
+.add-note{
+    display: flex;
+    justify-content: end;
+    align-items: end;
+    margin-top: 270px;
+}
+#add-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border-width: 1px;
+    background-color: #6C63FF;
+    color: white;
+}
+#add-button:hover{
+    cursor: url('./images/cursor\ icon.png'), auto;
+    background-color: #6159fa;
+}
+.edit-button:hover{
+    cursor: url('./images/cursor\ icon.png'), auto;
+    background-image: url('./images/edit\ colored\ icon.png');
+    background-repeat: no-repeat;
+}
+.delete-button:hover{
+    cursor: url('./images/cursor\ icon.png'), auto;
+    background-image: url('./images/delete\ colored\ icon.png');
+    background-repeat: no-repeat;
 }
 #test{
     color: gray;
