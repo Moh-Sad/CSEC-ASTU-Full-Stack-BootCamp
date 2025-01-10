@@ -40,10 +40,17 @@ h1 {
     background-color: white;
     color: #6C63FF;
 }
-#select-list:hover{
-    cursor: url('./images/cursor\ icon.png'), auto;
+#select-list:hover, #select-list:focus, #select-list:active option{
+    apperance: none;
+    cursor: url('./images/cursor\ icon.png'), auto !important;
     background-color: #6159fa;
 }
+.add {
+  cursor: pointer; 
+  background-color: red;
+  
+}
+
 #select-list option:hover{
     cursor: url('./images/cursor\ icon.png'), auto;
     background-color: lightgray;
@@ -141,7 +148,7 @@ hr {
     display: flex;
     justify-content: end;
     align-items: end;
-    margin-top: 270px;
+    margin-top: 250px;
 }
 #add-button{
     display: flex;
@@ -227,6 +234,17 @@ hr {
 #save-button:hover{
     cursor: url('./images/cursor\ icon.png'), auto;
     background-color: #6159fa;
+}
+.empty-note{
+    display: flex;
+    flex-direction: column;
+    margin-left: 325px;
+    height: 150px;
+}
+#empty-word{
+    font-weight: 400px;
+    text-align: center;
+    margin-top: 15px;
 }
 #test{
     color: gray;
