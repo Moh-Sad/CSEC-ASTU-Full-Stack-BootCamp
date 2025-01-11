@@ -125,4 +125,27 @@ On Day 6, we explored the **Document Object Model (DOM)** and learned how to man
 
 ---
 
-Stay tuned for more updates as I continue exploring Full-Stack Development in the BootCamp!  
+## Day 7: UI Design and Figma Integration
+
+Today, we focused on **UI design** by working on a Figma project and creating a **To-Do List** application using **HTML**, **CSS**, and **JavaScript**.
+
+### Key Activities:
+- **UI Design Practice**:  
+  - Explored a **Figma project** to understand design workflows.  
+  - Learned how to export assets and designs from Figma for implementation.  
+
+- **Development Practice**:  
+  - Built a **To-Do List application** as a hands-on project.  
+  - Integrated HTML for structure, CSS for styling, and JavaScript for interactivity.  
+
+- **Problem-Solving**:  
+  - Discussed challenges faced during development.  
+  - Collaborated with peers to resolve issues and referred to **Stack Overflow** for additional insights.  
+
+### Highlights:
+- It was a fantastic session that combined design and development.  
+- Strengthened our understanding of the process from **design to implementation**.
+
+---
+
+Stay tuned for more updates as I continue exploring Full-Stack Development in the BootCamp!
