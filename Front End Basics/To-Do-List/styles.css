@@ -40,20 +40,9 @@ h1 {
     background-color: white;
     color: #6C63FF;
 }
-#select-list:hover, #select-list:focus, #select-list:active option{
-    apperance: none;
+#select-list:hover{
     cursor: url('./images/cursor\ icon.png'), auto !important;
     background-color: #6159fa;
-}
-.add {
-  cursor: pointer; 
-  background-color: red;
-  
-}
-
-#select-list option:hover{
-    cursor: url('./images/cursor\ icon.png'), auto;
-    background-color: lightgray;
 }
 #mode-toggle{
     display: flex;
@@ -245,6 +234,12 @@ hr {
     font-weight: 400px;
     text-align: center;
     margin-top: 15px;
+}
+.hide {
+    opacity: 0;
+}
+.show {
+    opacity: 100%;
 }
 #test{
     color: gray;

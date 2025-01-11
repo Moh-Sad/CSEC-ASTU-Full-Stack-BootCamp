@@ -8,16 +8,16 @@
 </head>
 <body>
     <div class="container">
-        <h1>TODO LIST</h1> 
+        <h1>TODO LIST</h1>
         <div class="header">
             <div class="search-div">
                 <input type="text" id="search-box" placeholder="   Search note...">
                 <div id="search-button"><img src="./images/search icon.png" alt="Search icon"></div>
             </div>
             <select name="Drop" id="select-list">
-                <option class="add" value=""><p>ALL</p></option>
-                <option class="add" value=""><p>Complete</p></option>
-                <option class="add" value=""><p>Incomplete</p></option>
+                <option value="">ALL</option>
+                <option value="">Complete</option>
+                <option value="">Incomplete</option>
             </select>
             <div id="mode-toggle"><img src="./images/Moon icon.png" alt="Moon icon"></div>
         </div>
@@ -55,5 +55,7 @@
             </div>
         </div>
     </div>
+    <script src="./To-Do-List.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </body>
 </html>
