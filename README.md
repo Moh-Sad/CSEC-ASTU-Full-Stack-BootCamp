@@ -148,4 +148,38 @@ Today, we focused on **UI design** by working on a Figma project and creating a 
 
 ---
 
+## Day 8: Adding Functionality to the UI Project
+
+Building on the **To-Do List application** we created on Day 7, today we focused on enhancing its functionality using **JavaScript**. The goal was to make the project more interactive, user-friendly, and visually appealing.
+
+### Key Features Added:
+1. **Interactive Buttons**:  
+   - Used **event listeners** to handle user interactions.  
+   - Applied **onclick handlers** for actions like adding, editing, and deleting tasks.  
+   - Improved user experience with **cursor pointer styles** for better visual feedback.
+
+2. **Dark and Light Mode Toggle**:  
+   - Implemented a toggle switch that allows users to switch between dark and light modes.  
+   - Used **JavaScript DOM manipulation** to dynamically update styles.  
+   - Ensured the theme state persists during interactions.
+
+3. **User-Friendly Design Enhancements**:  
+   - Improved the layout and added animations for task addition and deletion.  
+   - Made the project familiar and intuitive by simplifying the user flow.  
+
+### Development Insights:
+- **Problem-Solving**:  
+  We encountered challenges when synchronizing dark and light modes with other elements, such as buttons and text. Through collaboration and debugging, we resolved these issues effectively.  
+
+- **Best Practices**:  
+  Learned the importance of keeping the code modular and reusable, especially when adding new features.  
+
+### Highlights:
+This session was fantastic! We successfully added meaningful functionality to our UI project, making it engaging and easy to use.  
+
+### Gratitude:
+What makes this journey more amazing is that we’re continuing with our lessons despite the final exams. A big thank you to the **CSEC ASTU Division Team** for their unwavering support and guidance!  
+
+---
+
 Stay tuned for more updates as I continue exploring Full-Stack Development in the BootCamp!
