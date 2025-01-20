@@ -72,7 +72,10 @@ Responsive design ensures that web pages adapt seamlessly to different screen si
 - **Responsive Navbar**: Designed a navigation bar that adjusts its layout for mobile and desktop views.  
 - **Responsive Cards**: Created visually appealing card components that reflow based on screen size.  
 
-We also completed a task to prepare a **responsive navbar and card layout** to consolidate our learnings.
+### Visuals:
+Below is a screenshot of the **responsive navbar** and **card layout** we created:  
+![Responsive Navbar and Card Layout]()
+We also completed a task to prepare a **responsive navbar and card layout** to consolidate our learnings.  
 
 ---
 
