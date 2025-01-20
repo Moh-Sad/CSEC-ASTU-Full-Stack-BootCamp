@@ -74,7 +74,7 @@ Responsive design ensures that web pages adapt seamlessly to different screen si
 
 ### Visuals:
 Below is a screenshot of the **responsive navbar** and **card layout** we created:  
-![Responsive Navbar and Card Layout]()
+![Responsive Navbar and Card Layout](https://github.com/Moh-Sad/CSEC-ASTU-Full-Stack-BootCamp/blob/main/Front%20End%20Basics/Card/images/Screenshot.png)
 We also completed a task to prepare a **responsive navbar and card layout** to consolidate our learnings.  
 
 ---
