@@ -39,7 +39,7 @@ header .search-box {
 }
 
 .search-box input{
-    width: 100%;
+    width: 88%;
     height: 40px;
     border: none;
     outline: none;
@@ -143,8 +143,10 @@ h3 {
 .gallery{
     display: flex;
     width: 100%;
+    justify-content: center;
     align-items: center;
     padding-top: 200px;
+    position: relative;
 }
 .card{
     width: 20%;
@@ -169,6 +171,7 @@ img{
     text-align: center;
     margin: 0 auto;
     display: block;
+    border-radius: 20px;
 }
 p{
     text-align: center;
