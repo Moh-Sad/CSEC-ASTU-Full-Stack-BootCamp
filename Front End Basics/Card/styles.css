@@ -146,7 +146,6 @@ h3 {
     justify-content: center;
     align-items: center;
     padding-top: 200px;
-    position: relative;
 }
 .card{
     width: 20%;
@@ -189,15 +188,14 @@ h6{
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 0;
+    padding: 0;
 }
 .stars > li{
-    padding-top: 5px;
+    padding: 5px;
 }
 .str{
     font-size: 26px;
     transition: .4s;
-    margin: 3px;
 }
 .checked{
     color: #ff9f43;
@@ -233,4 +231,14 @@ h6{
 }
 .buy-4{
     background: #ff9f43;
+}
+@media(max-width: 1000px){
+    .card{
+        width: 45%;
+    }
+}
+@media(max-width: 750px){
+    .card{
+        width: 100%;
+    }
 }
