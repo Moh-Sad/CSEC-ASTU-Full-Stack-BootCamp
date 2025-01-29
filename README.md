@@ -88,14 +88,14 @@ Today, we dove into the basics of **JavaScript** and explored the features intro
   - **Global Scope**: Variables accessible from anywhere in the code.  
   - **Local Scope**: Variables declared within a block, function, or module, limited to that context.  
 
-- **`let` vs. `const` vs. `var`**:  
-  - **`let`**: Block-scoped, can be reassigned.  
-  - **`const`**: Block-scoped, must be initialized and cannot be reassigned.  
-  - **`var`**: Function-scoped, has hoisting behavior.
+- **let vs. const vs. var**:  
+  - **let**: Block-scoped, can be reassigned.  
+  - **const**: Block-scoped, must be initialized and cannot be reassigned.  
+  - **var**: Function-scoped, has hoisting behavior.
 
 - **Logical Operators**:  
-  - **`==` (Equality Operator)**: Compares values after type coercion.  
-  - **`===` (Strict Equality Operator)**: Compares values without type coercion (checks both value and type).  
+  - **== (Equality Operator)**: Compares values after type coercion.  
+  - **=== (Strict Equality Operator)**: Compares values without type coercion (checks both value and type).  
 
 ### Tasks and Exercises:
 - Solved a **swapping variables** task.  
@@ -112,16 +112,16 @@ On Day 6, we explored the **Document Object Model (DOM)** and learned how to man
 ### Key Topics Covered:
 - **Understanding the DOM**: The structured representation of HTML as nodes and objects.  
 - **DOM Methods**:  
-  - **`querySelector`**: Selects the first matching element.  
-  - **`querySelectorAll`**: Selects all matching elements.  
-  - **`getElementById`**: Selects an element by its ID.  
-  - **`getElementsByClassName`**: Selects elements by their class name.  
+  - **querySelector**: Selects the first matching element.  
+  - **querySelectorAll**: Selects all matching elements.  
+  - **getElementById**: Selects an element by its ID.  
+  - **getElementsByClassName**: Selects elements by their class name.  
 
 - **Event Handling**:  
-  - **`onclick`**: Handling click events dynamically.  
+  - **onclick**: Handling click events dynamically.  
 
 ### Practical Exercises:
-- Practiced changing **`innerHTML`** dynamically using **`onclick`** and **`querySelector`**.  
+- Practiced changing **innerHTML** dynamically using **onclick** and **querySelector**.  
 
 ### Task Pending:
 - We will complete a task to create an interactive feature where users input email and password details, and JavaScript validates and displays them dynamically using DOM manipulation.
@@ -199,6 +199,36 @@ We finalized our semester with a session dedicated to reflection and feedback. H
 
 ### Gratitude:
 A heartfelt thank you to the **CSEC ASTU Division Team** and our incredible instructors **Abdurehman**, **Fasil**, and **Naol** for their guidance and support throughout this journey.
+
+---
+
+## Day 10: Revisiting ES6 JavaScript and Advanced Concepts
+
+On Day 10, we revisited and deepened our understanding of **ES6 JavaScript** and explored some advanced concepts that are crucial for modern web development. Here's a summary of what we covered:
+
+### Key Topics:
+1. **Callbacks**:  
+   - Learned how to use **callback functions** to handle asynchronous operations.  
+   - Practiced passing functions as arguments to other functions and executing them after a task is completed.
+
+2. **Template Literals**:  
+   - Explored the use of **template literals** (backticks) for cleaner and more readable string concatenation.  
+   - Practiced embedding expressions inside strings using `${}` syntax.
+
+3. **Destructuring**:  
+   - Understood how to **destructure arrays and objects** to extract values into variables more efficiently.  
+   - Practiced using destructuring in function parameters and assignments.
+
+4. **Arrow Functions**:  
+   - Revisited **arrow functions** and their concise syntax.  
+   - Discussed the implications of `this` in arrow functions compared to traditional functions.
+
+### Practical Exercises:
+- Solved exercises involving **callback functions** and **template literals**.  
+- Implemented **destructuring** in various scenarios to extract data from arrays and objects.  
+
+### Highlights:
+This session was incredibly insightful as we revisited foundational ES6 concepts and explored their practical applications. Understanding these advanced features is crucial for writing modern, efficient, and maintainable JavaScript code.
 
 ---
 
