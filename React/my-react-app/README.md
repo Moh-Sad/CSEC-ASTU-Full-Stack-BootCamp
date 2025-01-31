@@ -80,7 +80,7 @@ The build files will be located in the `dist` folder.
 csec-react-vite-project/
 ├── src/
 │   ├── components/
-│   │   ├── Card/
+│   │   └── Card/
 │   │       ├── Card.jsx
 │   │       └── Card.css
 │   │   
@@ -109,14 +109,6 @@ function App() {
   );
 }
 ```
-
-### Header Component
-
-The `Header` component provides a consistent navigation bar across the application.
-
-### Footer Component
-
-The `Footer` component displays essential links and information at the bottom of the page.
 
 ## Contributing
 
