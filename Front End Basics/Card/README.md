@@ -67,7 +67,7 @@ The CSS file (`styles.css`) includes styles for:
 
 ## Screenshots
 
-![Screenshot of the Responsive Nav & Card Layout](./Front%20End%20Basics/Card/images/Screenshot.png)
+![Screenshot of the Responsive Nav & Card Layout](https://github.com/Moh-Sad/CSEC-ASTU-Full-Stack-BootCamp/blob/main/Front%20End%20Basics/Card/images/Screenshot.png)
 
 ## License
 
