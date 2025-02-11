@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <>
       {/* Navbar */}
-      <div className="flex items-center p-1 w-[1728px] h-[101.28px] bg-yellow-200">
+      <div className="flex items-center w-[1728px] h-[101.28px]">
         <div className="pl-30">
           {/* Logo */}
           <img className="w-[158px] h-[61.28px]" src={logo} alt="Logo" />

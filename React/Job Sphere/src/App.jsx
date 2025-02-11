@@ -1,14 +1,16 @@
-import React from 'react'
-import Navbar from './components/Navbar'
+import React from "react";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Main from "./components/Main";
 
 const App = () => {
   return (
-    <div className=''>
-      <div>
-        <Navbar />
-      </div>
+    <div className="bg-[#F3F3F3]">
+      <Navbar />
+      <Hero />
+      <Main />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
