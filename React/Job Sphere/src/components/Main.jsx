@@ -1,29 +1,54 @@
-import React, { useState } from "react";
-import { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { SlLocationPin } from "react-icons/sl";
 import { IonRange } from "@ionic/react";
 import { IoSearchSharp } from "react-icons/io5";
-import Logo from "./images/Ellipse 1.png";
+import { FaRegBookmark, FaBookmark } from "react-icons/fa";
+import { FiShare2 } from "react-icons/fi";
+import { IoCloseOutline } from "react-icons/io5";
 
 const Main = () => {
-  const [jobs, setJobs] = useState();
+  const [jobs, setJobs] = useState([]);
+  const [savedJobs, setSavedJobs] = useState([]);
+
   useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(
         "https://joblisting-rd8f.onrender.com/api/jobs?limit=50"
       );
       const data = await response.json();
-      setJobs(data["jobs"]);
-      console.log(jobs);
+      // Add a default logo if the job doesn't have one
+      const jobsWithLogos = data.jobs.map((job) => ({
+        ...job,
+        logo: job.logo || "https://via.placeholder.com/150", // Default placeholder logo
+      }));
+      setJobs(jobsWithLogos);
     };
     fetchData();
   }, []);
 
+  const handleMark = (jobId) => {
+    setJobs((prevJobs) =>
+      prevJobs.map((job) =>
+        job.id === jobId ? { ...job, isBookmarked: !job.isBookmarked } : job
+      )
+    );
+
+    setSavedJobs((prevSavedJobs) => {
+      const jobIndex = prevSavedJobs.findIndex((job) => job.id === jobId);
+      if (jobIndex === -1) {
+        const jobToAdd = jobs.find((job) => job.id === jobId);
+        return [...prevSavedJobs, { ...jobToAdd, isBookmarked: true }];
+      } else {
+        return prevSavedJobs.filter((job) => job.id !== jobId);
+      }
+    });
+  };
+
   return (
     <>
-      <div className="flex gap-10 px-10">
+      <div className="flex gap-5 px-5">
         {/* Filter Section */}
-        <div className="flex flex-col my-10 w-[300px] bg-[#FFFFFF] rounded-2xl text-[#2F2F2F] p-4 gap-4 shadow-2xl dark:shadow-xl dark:shadow-black/50">
+        <div className="flex flex-col my-10 w-full h-full bg-[#FFFFFF] rounded-2xl text-[#2F2F2F] p-2 gap-4 shadow-2xl dark:shadow-xl dark:shadow-black/50">
           <h1 className="flex justify-center font-[600] text-3xl">Filter</h1>
 
           <div className="flex flex-col gap-1">
@@ -122,7 +147,7 @@ const Main = () => {
         </div>
 
         {/* Product Section */}
-        <div className="flex flex-col my-10 w-160 rounded-2xl text-[#2F2F2F] gap-4">
+        <div className="flex flex-col my-10 w-160 rounded-2xl text-[#2F2F2F] gap-4 p-2">
           {/* Search Bar */}
           <div className="flex rounded-[12px] bg-[#FFFFFF] w-150 h-[58px] p-2 shadow-2xl dark:shadow-xl dark:shadow-black/50">
             <IoSearchSharp className="flex items-center mt-3" size="18px" />
@@ -144,39 +169,97 @@ const Main = () => {
           </div>
 
           {/* Job Cards */}
-          <div className="flex rounded-2xl bg-[#FFFFFF] border-gray-300 border-1 w-150 h-58 shadow-2xl dark:shadow-xl dark:shadow-black/50 text-[#2F2F2F] p-1">
-            <div>
-              <div className="flex w-13 h-13 m-3">
-                <img src={Logo} alt="Card Logo" />
+          {jobs.map((job) => (
+            <div
+              key={job.id}
+              className="flex sticky rounded-2xl bg-[#FFFFFF] border-gray-300 border-1 w-full h-full shadow-2xl dark:shadow-xl dark:shadow-black/50 text-[#2F2F2F] p-1"
+            >
+              <div className="flex h-full">
+                <div className="flex w-13 h-13 m-3">
+                  <img
+                    src={job.logo}
+                    alt={`${job.company} Logo`}
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col w-230 py-1 mt-0.5 gap-2">
+                <h1 className="font-[600] text-3xl">{job.title}</h1>
+                <h2 className="font-[400] text-[20px]">{job.company}</h2>
+                <div className="flex gap-2 text-[15px] font-[350]">
+                  <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
+                    <p className="flex justify-center">{job.location}</p>
+                  </div>
+                  <div className="ounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
+                    <p className="flex justify-center">{job.type}</p>
+                  </div>
+                  <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
+                    <p className="flex justify-center">
+                      ${job.salaryMin} - ${job.salaryMax}
+                    </p>
+                  </div>
+                </div>
+                <div className="flex font-[390] text-[#000000_9px] w-full">
+                  <p>{job.description}</p>
+                </div>
+              </div>
+              <div className="flex gap-5 m-3 h-10">
+                {job.isBookmarked ? (
+                  <FaBookmark size="20px" onClick={() => handleMark(job.id)} />
+                ) : (
+                  <FaRegBookmark
+                    size="20px"
+                    onClick={() => handleMark(job.id)}
+                  />
+                )}
+                <FiShare2 className="" size="20px" />
               </div>
             </div>
-            <div className="flex flex-col py-1 mt-0.5">
-              <h1 className="font-[600] text-3xl">Product Design</h1>
-              <h2 className="font-[400] text-[20px]">Binford Ltd.</h2>
-              <div className="flex gap-2 text-[15px] font-[200]">
-                <div className="w-20 h-8 rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
-                  <p className="flex justify-center">Remote</p>
-                </div>
-                <div className="w-20 h-8 rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
-                  <p className="flex justify-center">Full-time</p>
-                </div>
-                <div className="w-26 h-8 rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
-                  <p className="flex justify-center">$200 - $1,200</p>
-                </div>
-              </div>
-              <div className="flex font-[200] text-[#000000_10px] w-full">
-                <p>
-                  Design intuitive and visually appealing user interfaces for
-                  web and mobile applications. Conduct user research and create
-                  wireframes, prototypes, and mockups to improve user
-                  experience. Work closely with developers to implement designs.
-                </p>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
 
-        <div></div>
+        {/* Saved Jobs */}
+        <div className="flex flex-col z-0 my-10 w-full h-full bg-[#FFFFFF] rounded-2xl text-[#2F2F2F] p-4 gap-4 shadow-2xl dark:shadow-xl dark:shadow-black/50">
+          <h1 className="flex justify-center items-center font-[600] text-3xl">
+            Saved Jobs
+          </h1>
+          {savedJobs.map((job) => (
+            <div
+              key={job.id}
+              className="flex rounded-2xl bg-[#FFFFFF] border-gray-300 border-1 shadow-2xl dark:shadow-xl dark:shadow-black/50 text-[#2F2F2F] p-1"
+            >
+              <div className="flex">
+                <div className="flex w-7 h-7 m-3">
+                  <img
+                    src={job.logo}
+                    alt={`${job.company} Logo`}
+                    className="w-full h-full object-cover rounded-full"
+                  />
+                </div>
+              </div>
+              <div className="flex flex-col py-1 mt-0.5 gap-1 w-[70%]">
+                <h1 className="font-[600] text-[16px]">{job.title}</h1>
+                <h2 className="font-[400] text-[13px]">{job.company}</h2>
+                <div className="flex gap-3 text-[10px] font-[350]">
+                  <div className="w-full h-full rounded-[4px] bg-[#EBEBEB] justify-center items-center p-0.5">
+                    <p className="flex justify-center">{job.location}</p>
+                  </div>
+                  <div className="w-full h-full rounded-[4px] bg-[#EBEBEB] justify-center items-center p-0.5">
+                    <p className="flex justify-center">
+                      ${job.salaryMin} - ${job.salaryMax}
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="flex mt-2 h-10">
+                <IoCloseOutline
+                  size="20px"
+                  onClick={() => handleMark(job.id)}
+                />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
     </>
   );
