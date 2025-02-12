@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { SlLocationPin } from "react-icons/sl";
 import { IonRange } from "@ionic/react";
 import { IoSearchSharp } from "react-icons/io5";
+import Logo from "./images/Ellipse 1.png";
 
 const Main = () => {
   const [jobs, setJobs] = useState();
@@ -21,9 +22,8 @@ const Main = () => {
   return (
     <>
       <div className="flex gap-10 px-10">
-
         {/* Filter Section */}
-        <div className="flex flex-col my-10 w-[300px] bg-[#FFFFFF] rounded-2xl text-[#2F2F2F] p-4 gap-4">
+        <div className="flex flex-col my-10 w-[300px] bg-[#FFFFFF] rounded-2xl text-[#2F2F2F] p-4 gap-4 shadow-2xl dark:shadow-xl dark:shadow-black/50">
           <h1 className="flex justify-center font-[600] text-3xl">Filter</h1>
 
           <div className="flex flex-col gap-1">
@@ -122,24 +122,60 @@ const Main = () => {
         </div>
 
         {/* Product Section */}
-        <div className="flex flex-col my-10 w-[361px] rounded-2xl text-[#2F2F2F] gap-4">
-          <div className="flex rounded-[12px] bg-[#FFFFFF] w-125 h-[38px] p-2">
-            <IoSearchSharp className="flex items-center mt-0.5" size="18px" />
-            <input type="text" className="w-70 ml-1" placeholder="Job title, Keywords, or Company name" />
-            <span className="flex items-center border-1 border-[#C1C1C1] h-6" size=""></span>
+        <div className="flex flex-col my-10 w-160 rounded-2xl text-[#2F2F2F] gap-4">
+          {/* Search Bar */}
+          <div className="flex rounded-[12px] bg-[#FFFFFF] w-150 h-[58px] p-2 shadow-2xl dark:shadow-xl dark:shadow-black/50">
+            <IoSearchSharp className="flex items-center mt-3" size="18px" />
+            <input
+              type="text"
+              className="w-75 ml-1 p-1"
+              placeholder="Job title, Keywords, or Company name"
+            />
+            <span className="flex items-center border-1 border-[#C1C1C1] h-6 mt-2"></span>
             <div className="flex">
-            <SlLocationPin className="flex justify-center items-center w-[20px] h-[15px] ml-0.5 mt-1" />
-            <p className="font-[300]">Location</p>
+              <SlLocationPin className="flex justify-center items-center w-[20px] h-[15px] ml-0.5 mt-3" />
+              <p className="font-[300] mt-2">Location</p>
             </div>
-            <div>
-              <button> </button>
+            <div className="flex justify-end ml-20">
+              <button className="w-[100px] h-[39px] bg-[#0034D1] text-[white] rounded-[12px]">
+                Search
+              </button>
             </div>
           </div>
 
-          <div className="flex rounded-2xl bg-[#FFFFFF] border-gray-300 border-1 w-100 h-40">
-
+          {/* Job Cards */}
+          <div className="flex rounded-2xl bg-[#FFFFFF] border-gray-300 border-1 w-150 h-58 shadow-2xl dark:shadow-xl dark:shadow-black/50 text-[#2F2F2F] p-1">
+            <div>
+              <div className="flex w-13 h-13 m-3">
+                <img src={Logo} alt="Card Logo" />
+              </div>
+            </div>
+            <div className="flex flex-col py-1 mt-0.5">
+              <h1 className="font-[600] text-3xl">Product Design</h1>
+              <h2 className="font-[400] text-[20px]">Binford Ltd.</h2>
+              <div className="flex gap-2 text-[15px] font-[200]">
+                <div className="w-20 h-8 rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
+                  <p className="flex justify-center">Remote</p>
+                </div>
+                <div className="w-20 h-8 rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
+                  <p className="flex justify-center">Full-time</p>
+                </div>
+                <div className="w-26 h-8 rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
+                  <p className="flex justify-center">$200 - $1,200</p>
+                </div>
+              </div>
+              <div className="flex font-[200] text-[#000000_10px] w-full">
+                <p>
+                  Design intuitive and visually appealing user interfaces for
+                  web and mobile applications. Conduct user research and create
+                  wireframes, prototypes, and mockups to improve user
+                  experience. Work closely with developers to implement designs.
+                </p>
+              </div>
+            </div>
           </div>
         </div>
+
         <div></div>
       </div>
     </>
