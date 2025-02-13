@@ -36,7 +36,6 @@ const Main = () => {
     };
     fetchData();
   }, []);
-  
 
   const handleMark = (jobId) => {
     setJobs((prevJobs) =>
@@ -65,21 +64,20 @@ const Main = () => {
 
   const filterJobs = () => {
     return jobs.filter((job) => {
-      const matchesDatePosted =
-        !filters.datePosted || job.datePosted === filters.datePosted;
       const matchesJobType =
         filters.jobType.length === 0 || filters.jobType.includes(job.type);
       const matchesLocation =
         !filters.location || job.location.includes(filters.location);
       const matchesExperienceLevel =
-        !filters.experienceLevel || job.experienceLevel === filters.experienceLevel;
+        !filters.experienceLevel ||
+        job.experienceLevel === filters.experienceLevel;
       const matchesSalaryRange =
-        job.salary >= filters.salaryRange[0] && job.salary <= filters.salaryRange[1];
+        job.salary >= filters.salaryRange[0] &&
+        job.salary <= filters.salaryRange[1];
       const matchesCurrency =
         !filters.currency || job.currency === filters.currency;
-
+  
       return (
-        matchesDatePosted &&
         matchesJobType &&
         matchesLocation &&
         matchesExperienceLevel &&
@@ -104,7 +102,9 @@ const Main = () => {
               <select
                 className="flex w-full ml-3 font-[300] cursor-pointer"
                 value={filters.datePosted}
-                onChange={(e) => handleFilterChange("datePosted", e.target.value)}
+                onChange={(e) =>
+                  handleFilterChange("datePosted", e.target.value)
+                }
               >
                 <option value="">All</option>
                 <option value="24">Last 24 Hours</option>
@@ -117,7 +117,13 @@ const Main = () => {
           <div className="flex flex-col gap-1">
             <p>Job Type</p>
             <div className="flex-col rounded-[8px] border-gray-300 border-2 gap-4 py-3 font-[390] ml-1">
-              {["Full-time", "Part-time", "Internship", "Contract", "Volunteer"].map((type) => (
+              {[
+                "Full-time",
+                "Part-time",
+                "Internship",
+                "Contract",
+                "Volunteer",
+              ].map((type) => (
                 <div className="flex ml-3" key={type}>
                   <input
                     className="mr-2 cursor-pointer"
@@ -155,7 +161,9 @@ const Main = () => {
               <select
                 className="flex w-full ml-3 font-[300] cursor-pointer"
                 value={filters.experienceLevel}
-                onChange={(e) => handleFilterChange("experienceLevel", e.target.value)}
+                onChange={(e) =>
+                  handleFilterChange("experienceLevel", e.target.value)
+                }
               >
                 <option value="">All</option>
                 <option value="Entry">Entry Level</option>
@@ -222,6 +230,7 @@ const Main = () => {
                 <option value="USD">Dollar ($)</option>
                 <option value="EUR">Euro (€)</option>
                 <option value="GBP">Pound (£)</option>
+                <option value="ETB">Birr</option>
               </select>
             </div>
           </div>
@@ -268,7 +277,7 @@ const Main = () => {
           </div>
 
           {/* Job Cards */}
-          {filteredJobs.map((job) => (
+          {jobs.map((job) => (
             <div
               key={job.id}
               className="flex sticky rounded-2xl bg-[#FFFFFF] border-gray-300 border-1 w-full h-full shadow-2xl dark:shadow-xl dark:shadow-black/50 text-[#2F2F2F] p-1"
@@ -287,10 +296,10 @@ const Main = () => {
                 <h2 className="font-[400] text-[20px]">{job.company}</h2>
                 <div className="flex gap-2 text-[15px] font-[350]">
                   <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
-                    <p className="flex justify-center">{job.type}</p>
+                    <p className="flex justify-center">{job.location}</p>
                   </div>
                   <div className="ounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
-                    <p className="flex justify-center">{job.location}</p>
+                    <p className="flex justify-center">{job.type}</p>
                   </div>
                   <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
                     <p className="flex justify-center">
@@ -304,19 +313,14 @@ const Main = () => {
               </div>
               <div className="flex gap-5 m-3 h-10">
                 {job.isBookmarked ? (
-                  <FaBookmark
-                    className="cursor-pointer"
-                    size="20px"
-                    onClick={() => handleMark(job.id)}
-                  />
+                  <FaBookmark size="20px" onClick={() => handleMark(job.id)} />
                 ) : (
                   <FaRegBookmark
-                    className="cursor-pointer"
                     size="20px"
                     onClick={() => handleMark(job.id)}
                   />
                 )}
-                <FiShare2 className="cursor-pointer" size="20px" />
+                <FiShare2 className="" size="20px" />
               </div>
             </div>
           ))}
