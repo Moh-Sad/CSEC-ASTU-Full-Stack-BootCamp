@@ -26,6 +26,7 @@ const Main = () => {
         "https://joblisting-rd8f.onrender.com/api/jobs?limit=50"
       );
       const data = await response.json();
+      console.log(data); // Log the data here
       const jobsWithLogos = data.jobs.map((job) => ({
         ...job,
         logo: job.logo || "https://via.placeholder.com/150",
@@ -35,6 +36,7 @@ const Main = () => {
     };
     fetchData();
   }, []);
+  
 
   const handleMark = (jobId) => {
     setJobs((prevJobs) =>
