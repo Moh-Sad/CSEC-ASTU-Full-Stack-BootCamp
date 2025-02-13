@@ -5,7 +5,7 @@ const Navbar = () => {
   return (
     <>
       {/* Navbar */}
-      <div className="flex flex-col">
+      <section className="flex flex-col z-100">
         <div className="flex items-center w-[1728px] h-[101.28px]">
           <div className="pl-30">
             {/* Logo */}
@@ -13,7 +13,7 @@ const Navbar = () => {
           </div>
           {/* Nav Links */}
           <div>
-            <ul className="flex justify-between gap-[24px] px-30">
+            <ul className="flex justify-between gap-[24px] px-30 cursor-pointer">
               <li>Job Search</li>
               <li>My Applications</li>
               <li>Companies</li>
@@ -21,18 +21,18 @@ const Navbar = () => {
             </ul>
           </div>
           {/* Login/Signup */}
-          <div className="flex gap-4">
-            <button className="bg-[#0034D1] w-[167px] h-[48px] text-white px-4 py-2 rounded-md">
-              Login
+          <div className="flex gap-4 font-[600]">
+            <button className="cursor-pointer bg-[#0034D1] w-[167px] h-[48px] text-white px-4 py-2 rounded-md">
+              <p>Login</p>
             </button>
-            <button className="border-1 border-[#0034D1] w-[167px] h-[48px] text-black px-4 py-2 rounded-md">
-              Signup
+            <button className="cursor-pointer border-1 border-[#0034D1] w-[167px] h-[48px] text-black px-4 py-2 rounded-md">
+              <p>Signup</p>
             </button>
           </div>
         </div>
         {/* Border */}
         <div className="border-3 border-gray-300"></div>
-      </div>
+      </section>
     </>
   );
 };
