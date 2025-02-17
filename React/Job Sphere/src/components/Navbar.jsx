@@ -11,6 +11,7 @@ const Navbar = () => {
             {/* Logo */}
             <img className="w-[158px] h-[61.28px]" src={logo} alt="Logo" />
           </div>
+
           {/* Nav Links */}
           <div>
             <ul className="flex justify-between gap-[24px] px-30 cursor-pointer">
@@ -20,6 +21,7 @@ const Navbar = () => {
               <li>Contact Us</li>
             </ul>
           </div>
+
           {/* Login/Signup */}
           <div className="flex gap-4 font-[600]">
             <button className="cursor-pointer bg-[#0034D1] w-[167px] h-[48px] text-white px-4 py-2 rounded-md">
@@ -30,6 +32,7 @@ const Navbar = () => {
             </button>
           </div>
         </div>
+        
         {/* Border */}
         <div className="border-3 border-gray-300"></div>
       </section>

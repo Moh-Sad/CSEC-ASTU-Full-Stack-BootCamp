@@ -16,23 +16,31 @@ const Main = () => {
     jobType: [],
     location: "",
     experienceLevel: "",
-    salaryRange: [0, 100000],
+    salaryRange: [200, 100000], // Default salary range starts from $200
     currency: "",
   });
+  const [searchQuery, setSearchQuery] = useState("");
+  const [locationQuery, setLocationQuery] = useState("");
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
-      const response = await fetch(
-        "https://joblisting-rd8f.onrender.com/api/jobs?limit=50"
-      );
-      const data = await response.json();
-      console.log(data); // Log the data here
-      const jobsWithLogos = data.jobs.map((job) => ({
-        ...job,
-        logo: job.logo || "https://via.placeholder.com/150",
-        isBookmarked: false,
-      }));
-      setJobs(jobsWithLogos);
+      try {
+        const response = await fetch(
+          "https://joblisting-rd8f.onrender.com/api/jobs?limit=50"
+        );
+        const data = await response.json();
+        const jobsWithLogos = data.jobs.map((job) => ({
+          ...job,
+          logo: job.logo || "https://via.placeholder.com/150",
+          isBookmarked: false,
+        }));
+        setJobs(jobsWithLogos);
+      } catch (error) {
+        console.error("Error fetching jobs:", error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetchData();
   }, []);
@@ -64,25 +72,33 @@ const Main = () => {
 
   const filterJobs = () => {
     return jobs.filter((job) => {
-      const matchesJobType =
-        filters.jobType.length === 0 || filters.jobType.includes(job.type);
+      const matchesSearchQuery =
+        !searchQuery ||
+        job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        job.company.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesLocationQuery =
+        !locationQuery ||
+        job.location.toLowerCase().includes(locationQuery.toLowerCase());
       const matchesLocation =
         !filters.location || job.location.includes(filters.location);
       const matchesExperienceLevel =
         !filters.experienceLevel ||
         job.experienceLevel === filters.experienceLevel;
       const matchesSalaryRange =
-        job.salary >= filters.salaryRange[0] &&
         job.salary <= filters.salaryRange[1];
       const matchesCurrency =
         !filters.currency || job.currency === filters.currency;
-  
+      const matchesJobType =
+        filters.jobType.length === 0 || filters.jobType.includes(job.type);
+
       return (
-        matchesJobType &&
+        matchesSearchQuery &&
+        matchesLocationQuery &&
         matchesLocation &&
         matchesExperienceLevel &&
         matchesSalaryRange &&
-        matchesCurrency
+        matchesCurrency &&
+        matchesJobType
       );
     });
   };
@@ -118,11 +134,13 @@ const Main = () => {
             <p>Job Type</p>
             <div className="flex-col rounded-[8px] border-gray-300 border-2 gap-4 py-3 font-[390] ml-1">
               {[
-                "Full-time",
-                "Part-time",
+                "Full-Time",
+                "Part-Time",
                 "Internship",
                 "Contract",
                 "Volunteer",
+                "Hybrid",
+                "Remote",
               ].map((type) => (
                 <div className="flex ml-3" key={type}>
                   <input
@@ -166,9 +184,9 @@ const Main = () => {
                 }
               >
                 <option value="">All</option>
-                <option value="Entry">Entry Level</option>
-                <option value="Intermediate">Intermediate</option>
-                <option value="Senior">Senior</option>
+                <option value="Entry Level">Entry Level</option>
+                <option value="Mid Level">Mid Level</option>
+                <option value="Senior Level">Senior Level</option>
               </select>
             </div>
           </div>
@@ -178,8 +196,8 @@ const Main = () => {
             <RangeSlider
               value={filters.salaryRange}
               onInput={(value) => handleFilterChange("salaryRange", value)}
-              min={0}
-              max={100000}
+              min={200} 
+              max={1000000}
             />
           </div>
 
@@ -244,7 +262,7 @@ const Main = () => {
                   jobType: [],
                   location: "",
                   experienceLevel: "",
-                  salaryRange: [0, 100000],
+                  salaryRange: [200, 1000000], 
                   currency: "",
                 })
               }
@@ -263,11 +281,19 @@ const Main = () => {
               type="text"
               className="w-75 ml-1 p-1 cursor-pointer"
               placeholder="Job title, Keywords, or Company name"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
             />
             <span className="flex items-center border-1 border-[#C1C1C1] h-6 mt-2"></span>
             <div className="flex">
               <SlLocationPin className="flex justify-center items-center w-[20px] h-[15px] ml-0.5 mt-3" />
-              <p className="font-[300] mt-2 cursor-pointer">Location</p>
+              <input
+                type="text"
+                className="font-[300] mt-2 cursor-pointer ml-1"
+                placeholder="Location"
+                value={locationQuery}
+                onChange={(e) => setLocationQuery(e.target.value)}
+              />
             </div>
             <div className="flex justify-end ml-20 font-[600]">
               <button className="w-[100px] h-[39px] bg-[#0034D1] text-[white] rounded-[12px] cursor-pointer">
@@ -277,53 +303,63 @@ const Main = () => {
           </div>
 
           {/* Job Cards */}
-          {jobs.map((job) => (
-            <div
-              key={job.id}
-              className="flex sticky rounded-2xl bg-[#FFFFFF] border-gray-300 border-1 w-full h-full shadow-2xl dark:shadow-xl dark:shadow-black/50 text-[#2F2F2F] p-1"
-            >
-              <div className="flex h-full">
-                <div className="flex w-13 h-13 m-3">
-                  <img
-                    src={job.logo}
-                    alt={`${job.company} Logo`}
-                    className="w-full h-full object-cover rounded-full"
-                  />
-                </div>
-              </div>
-              <div className="flex flex-col w-230 py-1 mt-0.5 gap-2">
-                <h1 className="font-[600] text-3xl">{job.title}</h1>
-                <h2 className="font-[400] text-[20px]">{job.company}</h2>
-                <div className="flex gap-2 text-[15px] font-[350]">
-                  <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
-                    <p className="flex justify-center">{job.location}</p>
-                  </div>
-                  <div className="ounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
-                    <p className="flex justify-center">{job.type}</p>
-                  </div>
-                  <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
-                    <p className="flex justify-center">
-                      ${200} - {job.salary}
-                    </p>
-                  </div>
-                </div>
-                <div className="flex font-[390] text-[#000000_9px] w-full">
-                  <p>{job.description}</p>
-                </div>
-              </div>
-              <div className="flex gap-5 m-3 h-10">
-                {job.isBookmarked ? (
-                  <FaBookmark size="20px" onClick={() => handleMark(job.id)} />
-                ) : (
-                  <FaRegBookmark
-                    size="20px"
-                    onClick={() => handleMark(job.id)}
-                  />
-                )}
-                <FiShare2 className="" size="20px" />
-              </div>
+          {loading ? (
+            <div className="flex justify-center items-center h-64">
+              <p>Loading...</p>
             </div>
-          ))}
+          ) : filteredJobs.length === 0 ? (
+            <div className="flex justify-center items-center h-64">
+              <p>No jobs found matching the selected filters.</p>
+            </div>
+          ) : (
+            filteredJobs.map((job) => (
+              <div
+                key={job.id}
+                className="flex sticky rounded-2xl bg-[#FFFFFF] border-gray-300 border-1 w-full h-full shadow-2xl dark:shadow-xl dark:shadow-black/50 text-[#2F2F2F] p-1"
+              >
+                <div className="flex h-full">
+                  <div className="flex w-13 h-13 m-3">
+                    <img
+                      src={job.logo}
+                      alt={`${job.company} Logo`}
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col w-230 py-1 mt-0.5 gap-2">
+                  <h1 className="font-[600] text-3xl">{job.title}</h1>
+                  <h2 className="font-[400] text-[20px]">{job.company}</h2>
+                  <div className="flex gap-2 text-[15px] font-[350]">
+                    <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
+                      <p className="flex justify-center">{job.location}</p>
+                    </div>
+                    <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
+                      <p className="flex justify-center">{job.type}</p>
+                    </div>
+                    <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
+                      <p className="flex justify-center">
+                        ${200} - {job.salary}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="flex font-[390] text-[#000000_9px] w-full">
+                    <p>{job.description}</p>
+                  </div>
+                </div>
+                <div className="flex gap-5 m-3 h-10">
+                  {job.isBookmarked ? (
+                    <FaBookmark size="20px" onClick={() => handleMark(job.id)} />
+                  ) : (
+                    <FaRegBookmark
+                      size="20px"
+                      onClick={() => handleMark(job.id)}
+                    />
+                  )}
+                  <FiShare2 className="" size="20px" />
+                </div>
+              </div>
+            ))
+          )}
         </div>
 
         {/* Saved Jobs */}
