@@ -10,18 +10,23 @@ import "./RangeSlider.css";
 
 const Main = () => {
   const [jobs, setJobs] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(4);
   const [savedJobs, setSavedJobs] = useState([]);
   const [filters, setFilters] = useState({
     datePosted: "",
     jobType: [],
     location: "",
     experienceLevel: "",
-    salaryRange: [200, 100000], // Default salary range starts from $200
+    salaryRange: [200, 120000],
     currency: "",
   });
+
   const [searchQuery, setSearchQuery] = useState("");
-  const [locationQuery, setLocationQuery] = useState("");
   const [loading, setLoading] = useState(true);
+
+  const lastPostIndex = currentPage * postsPerPage;
+  const firstPostIndex = lastPostIndex - postsPerPage;
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,17 +80,21 @@ const Main = () => {
       const matchesSearchQuery =
         !searchQuery ||
         job.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        job.location.toLowerCase().includes(searchQuery.toLowerCase()) ||
         job.company.toLowerCase().includes(searchQuery.toLowerCase());
-      const matchesLocationQuery =
-        !locationQuery ||
-        job.location.toLowerCase().includes(locationQuery.toLowerCase());
       const matchesLocation =
-        !filters.location || job.location.includes(filters.location);
+        !filters.location ||
+        job.location.toLowerCase().includes(filters.location.toLowerCase());
       const matchesExperienceLevel =
         !filters.experienceLevel ||
         job.experienceLevel === filters.experienceLevel;
+
+      const jobSalary = parseInt(job.salary.replace(/[^\d]/g, ""));
+
       const matchesSalaryRange =
-        job.salary <= filters.salaryRange[1];
+        jobSalary >= filters.salaryRange[0] &&
+        jobSalary <= filters.salaryRange[1];
+
       const matchesCurrency =
         !filters.currency || job.currency === filters.currency;
       const matchesJobType =
@@ -93,7 +102,6 @@ const Main = () => {
 
       return (
         matchesSearchQuery &&
-        matchesLocationQuery &&
         matchesLocation &&
         matchesExperienceLevel &&
         matchesSalaryRange &&
@@ -104,6 +112,9 @@ const Main = () => {
   };
 
   const filteredJobs = filterJobs();
+  const currentPosts = filteredJobs.slice(firstPostIndex, lastPostIndex);
+
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (
     <>
@@ -196,19 +207,19 @@ const Main = () => {
             <RangeSlider
               value={filters.salaryRange}
               onInput={(value) => handleFilterChange("salaryRange", value)}
-              min={200} 
-              max={1000000}
+              min={200}
+              max={120000}
             />
           </div>
 
           <div className="flex flex-col gap-1">
             <p className="flex ml-21">Input Manually</p>
-            <div className="flex font-[390] justify-center  gap-7">
+            <div className="flex font-[390] justify-center gap-7">
               <div className="flex gap-1">
                 <p>From</p>
                 <input
                   type="text"
-                  className="flex w-[37px] h-[23px] rounded-[8px] border-gray-300 border-2 cursor-pointer"
+                  className="flex w-[37px] h-[23px] rounded-[8px] border-gray-300 border-2 cursor-pointer focus:w-[100px] focus:h-[30px] transition-all duration-100"
                   value={filters.salaryRange[0]}
                   onChange={(e) =>
                     handleFilterChange("salaryRange", [
@@ -223,7 +234,7 @@ const Main = () => {
                 <p>To</p>
                 <input
                   type="text"
-                  className="flex w-[37px] h-[23px] rounded-[8px] border-gray-300 border-2 cursor-pointer"
+                  className="flex w-[37px] h-[23px] rounded-[8px] border-gray-300 border-2 cursor-pointer justify-center focus:w-[100px] focus:h-[30px] transition-all duration-100"
                   value={filters.salaryRange[1]}
                   onChange={(e) =>
                     handleFilterChange("salaryRange", [
@@ -262,7 +273,7 @@ const Main = () => {
                   jobType: [],
                   location: "",
                   experienceLevel: "",
-                  salaryRange: [200, 1000000], 
+                  salaryRange: [200, 120000000],
                   currency: "",
                 })
               }
@@ -273,7 +284,7 @@ const Main = () => {
         </div>
 
         {/* Product Section */}
-        <div className="flex flex-col my-10 z-0 w-160 rounded-2xl text-[#2F2F2F] gap-4 p-2">
+        <div className="flex flex-col my-10 z-0 w-160 rounded-2xl text-[#2F2F2F] gap-4">
           {/* Search Bar */}
           <div className="flex rounded-[12px] bg-[#FFFFFF] w-full h-[58px] p-2 shadow-2xl dark:shadow-xl dark:shadow-black/50">
             <IoSearchSharp className="flex items-center mt-3" size="18px" />
@@ -284,18 +295,12 @@ const Main = () => {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
-            <span className="flex items-center border-1 border-[#C1C1C1] h-6 mt-2"></span>
+            <span className="flex items-center border-1 border-[#C1C1C1] h-6 mt-2 ml-1"></span>
             <div className="flex">
               <SlLocationPin className="flex justify-center items-center w-[20px] h-[15px] ml-0.5 mt-3" />
-              <input
-                type="text"
-                className="font-[300] mt-2 cursor-pointer ml-1"
-                placeholder="Location"
-                value={locationQuery}
-                onChange={(e) => setLocationQuery(e.target.value)}
-              />
+              <p className="font-[300] mt-2">Location</p>
             </div>
-            <div className="flex justify-end ml-20 font-[600]">
+            <div className="flex justify-end ml-24 font-[600]">
               <button className="w-[100px] h-[39px] bg-[#0034D1] text-[white] rounded-[12px] cursor-pointer">
                 Search
               </button>
@@ -312,53 +317,121 @@ const Main = () => {
               <p>No jobs found matching the selected filters.</p>
             </div>
           ) : (
-            filteredJobs.map((job) => (
-              <div
-                key={job.id}
-                className="flex sticky rounded-2xl bg-[#FFFFFF] border-gray-300 border-1 w-full h-full shadow-2xl dark:shadow-xl dark:shadow-black/50 text-[#2F2F2F] p-1"
-              >
-                <div className="flex h-full">
-                  <div className="flex w-13 h-13 m-3">
-                    <img
-                      src={job.logo}
-                      alt={`${job.company} Logo`}
-                      className="w-full h-full object-cover rounded-full"
-                    />
-                  </div>
-                </div>
-                <div className="flex flex-col w-230 py-1 mt-0.5 gap-2">
-                  <h1 className="font-[600] text-3xl">{job.title}</h1>
-                  <h2 className="font-[400] text-[20px]">{job.company}</h2>
-                  <div className="flex gap-2 text-[15px] font-[350]">
-                    <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
-                      <p className="flex justify-center">{job.location}</p>
-                    </div>
-                    <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
-                      <p className="flex justify-center">{job.type}</p>
-                    </div>
-                    <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
-                      <p className="flex justify-center">
-                        ${200} - {job.salary}
-                      </p>
+            <>
+              {currentPosts.map((job) => (
+                <div
+                  key={job.id}
+                  className="flex sticky rounded-2xl bg-[#FFFFFF] border-gray-300 border-1 w-full h-full shadow-2xl dark:shadow-xl dark:shadow-black/50 text-[#2F2F2F] p-1"
+                >
+                  <div className="flex h-full">
+                    <div className="flex w-13 h-13 m-3">
+                      <img
+                        src={job.logo}
+                        alt={`${job.company} Logo`}
+                        className="w-full h-full object-cover rounded-full"
+                      />
                     </div>
                   </div>
-                  <div className="flex font-[390] text-[#000000_9px] w-full">
-                    <p>{job.description}</p>
+                  <div className="flex flex-col w-full py-1 mt-0.5 gap-2 cursor-pointer">
+                    <h1 className="font-[600] text-3xl ">{job.title}</h1>
+                    <h2 className="font-[400] text-[20px]">{job.company}</h2>
+                    <div className="flex gap-2 text-[15px] font-[350]">
+                      <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
+                        <p className="flex justify-center">{job.location}</p>
+                      </div>
+                      <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
+                        <p className="flex justify-center">{job.type}</p>
+                      </div>
+                      <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
+                        <p className="flex justify-center">
+                          ${200} - {job.salary}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex font-[390] text-[#000000_9px] w-full">
+                      <p>{job.description}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-5 m-3 h-10 cursor-pointer">
+                    {job.isBookmarked ? (
+                      <FaBookmark
+                        size="20px"
+                        onClick={() => handleMark(job.id)}
+                      />
+                    ) : (
+                      <FaRegBookmark
+                        size="20px"
+                        onClick={() => handleMark(job.id)}
+                      />
+                    )}
+                    <FiShare2 className="" size="20px" />
                   </div>
                 </div>
-                <div className="flex gap-5 m-3 h-10">
-                  {job.isBookmarked ? (
-                    <FaBookmark size="20px" onClick={() => handleMark(job.id)} />
-                  ) : (
-                    <FaRegBookmark
-                      size="20px"
-                      onClick={() => handleMark(job.id)}
-                    />
-                  )}
-                  <FiShare2 className="" size="20px" />
-                </div>
+              ))}
+
+              {/* Pagination Controls */}
+              <div className="flex justify-center gap-2 mt-4">
+                {currentPage > 1 && (
+                  <button
+                    onClick={() => paginate(currentPage - 1)}
+                    className="px-4 py-2 rounded-md bg-[#EBEBEB] hover:bg-[#0034D1] hover:text-white transition-all duration-200"
+                  >
+                    Previous
+                  </button>
+                )}
+
+                {Array.from(
+                  { length: Math.ceil(filteredJobs.length / postsPerPage) },
+                  (_, i) => {
+                    const pageNumber = i + 1;
+                    
+                    if (
+                      pageNumber === 1 ||
+                      pageNumber ===
+                        Math.ceil(filteredJobs.length / postsPerPage) || 
+                      (pageNumber >= currentPage - 1 &&
+                        pageNumber <= currentPage + 1) 
+                    ) {
+                      return (
+                        <button
+                          key={pageNumber}
+                          onClick={() => paginate(pageNumber)}
+                          className={`px-4 py-2 rounded-md ${
+                            currentPage === pageNumber
+                              ? "bg-[#0034D1] text-white"
+                              : "bg-[#EBEBEB]"
+                          }`}
+                        >
+                          {pageNumber}
+                        </button>
+                      );
+                    } else if (
+                      (pageNumber === currentPage - 2 && currentPage > 3) || 
+                      (pageNumber === currentPage + 2 &&
+                        currentPage <
+                          Math.ceil(filteredJobs.length / postsPerPage) - 2) 
+                    ) {
+                      return (
+                        <span key={pageNumber} className="px-4 py-2">
+                          ...
+                        </span>
+                      );
+                    }
+                    return null;
+                  }
+                )}
+
+                {currentPage <
+                  Math.ceil(filteredJobs.length / postsPerPage) && (
+                  <button
+                    onClick={() => paginate(currentPage + 1)}
+                    className="px-4 py-2 rounded-md bg-[#EBEBEB] hover:bg-[#0034D1] hover:text-white transition-all duration-200"
+                  >
+                    Next
+                  </button>
+                )}
               </div>
-            ))
+            </>
           )}
         </div>
 

@@ -1,15 +1,14 @@
 import React from "react";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import Main from "./components/Main";
-import Test from "./components/Test";
-
+import Home from "./components/Home";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 const App = () => {
   return (
     <div className="bg-[#F3F3F3]">
-      <Navbar />
-      <Hero />
-      <Main />
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </Router>
     </div>
   );
 };
