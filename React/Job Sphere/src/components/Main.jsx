@@ -384,13 +384,13 @@ const Main = () => {
                   { length: Math.ceil(filteredJobs.length / postsPerPage) },
                   (_, i) => {
                     const pageNumber = i + 1;
-                    
+
                     if (
                       pageNumber === 1 ||
                       pageNumber ===
-                        Math.ceil(filteredJobs.length / postsPerPage) || 
+                        Math.ceil(filteredJobs.length / postsPerPage) ||
                       (pageNumber >= currentPage - 1 &&
-                        pageNumber <= currentPage + 1) 
+                        pageNumber <= currentPage + 1)
                     ) {
                       return (
                         <button
@@ -406,10 +406,10 @@ const Main = () => {
                         </button>
                       );
                     } else if (
-                      (pageNumber === currentPage - 2 && currentPage > 3) || 
+                      (pageNumber === currentPage - 2 && currentPage > 3) ||
                       (pageNumber === currentPage + 2 &&
                         currentPage <
-                          Math.ceil(filteredJobs.length / postsPerPage) - 2) 
+                          Math.ceil(filteredJobs.length / postsPerPage) - 2)
                     ) {
                       return (
                         <span key={pageNumber} className="px-4 py-2">
@@ -440,43 +440,51 @@ const Main = () => {
           <h1 className="flex justify-center items-center font-[600] text-3xl">
             Saved Jobs
           </h1>
-          {savedJobs.map((job) => (
-            <div
-              key={job.id}
-              className="flex rounded-2xl bg-[#FFFFFF] border-gray-300 border-1 shadow-2xl dark:shadow-xl dark:shadow-black/50 text-[#2F2F2F] p-1"
-            >
-              <div className="flex">
-                <div className="flex w-7 h-7 m-3">
-                  <img
-                    src={job.logo}
-                    alt={`${job.company} Logo`}
-                    className="w-full h-full object-cover rounded-full"
+          {savedJobs.length === 0 ? ( 
+            <div className="flex justify-center items-center h-64">
+              <p className="text-[#2F2F2F] font-[400] text-lg">
+                No jobs have been saved yet.
+              </p>
+            </div>
+          ) : (
+            savedJobs.map((job) => (
+              <div
+                key={job.id}
+                className="flex rounded-2xl bg-[#FFFFFF] border-gray-300 border-1 shadow-2xl dark:shadow-xl dark:shadow-black/50 text-[#2F2F2F] p-1"
+              >
+                <div className="flex">
+                  <div className="flex w-7 h-7 m-3">
+                    <img
+                      src={job.logo}
+                      alt={`${job.company} Logo`}
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col py-1 mt-0.5 gap-1 w-[70%]">
+                  <h1 className="font-[600] text-[16px]">{job.title}</h1>
+                  <h2 className="font-[400] text-[13px]">{job.company}</h2>
+                  <div className="flex gap-5 text-[10px] font-[350]">
+                    <div className="w-full h-full rounded-[4px] bg-[#EBEBEB] justify-center items-center p-0.5">
+                      <p className="flex justify-center">{job.type}</p>
+                    </div>
+                    <div className="w-full h-full rounded-[4px] bg-[#EBEBEB] justify-center items-center p-0.5">
+                      <p className="flex justify-center">
+                        ${200} - {job.salary}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex mt-2 h-10">
+                  <IoCloseOutline
+                    className="cursor-pointer"
+                    size="20px"
+                    onClick={() => handleMark(job.id)}
                   />
                 </div>
               </div>
-              <div className="flex flex-col py-1 mt-0.5 gap-1 w-[70%]">
-                <h1 className="font-[600] text-[16px]">{job.title}</h1>
-                <h2 className="font-[400] text-[13px]">{job.company}</h2>
-                <div className="flex gap-5 text-[10px] font-[350]">
-                  <div className="w-full h-full rounded-[4px] bg-[#EBEBEB] justify-center items-center p-0.5">
-                    <p className="flex justify-center">{job.type}</p>
-                  </div>
-                  <div className="w-full h-full rounded-[4px] bg-[#EBEBEB] justify-center items-center p-0.5">
-                    <p className="flex justify-center">
-                      ${200} - {job.salary}
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div className="flex mt-2 h-10">
-                <IoCloseOutline
-                  className="cursor-pointer"
-                  size="20px"
-                  onClick={() => handleMark(job.id)}
-                />
-              </div>
-            </div>
-          ))}
+            ))
+          )}
         </div>
       </div>
     </>

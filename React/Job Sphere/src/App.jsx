@@ -1,5 +1,6 @@
 import React from "react";
 import Home from "./components/Home";
+import Details from "./components/Details";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 const App = () => {
   return (
@@ -7,6 +8,7 @@ const App = () => {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/details" element={<Details />} />
         </Routes>
       </Router>
     </div>
