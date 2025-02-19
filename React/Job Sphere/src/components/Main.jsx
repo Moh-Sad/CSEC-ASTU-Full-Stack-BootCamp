@@ -113,7 +113,6 @@ const Main = () => {
 
   const filteredJobs = filterJobs();
   const currentPosts = filteredJobs.slice(firstPostIndex, lastPostIndex);
-
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
   return (

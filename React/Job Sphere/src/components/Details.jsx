@@ -43,12 +43,23 @@ const Details = () => {
 
       <section>
         <div className="flex">
-            <div>
-
+          <div>
+            <div className="flex gap-2">
+              <div>Logo</div>
+              <div className="flex flex-col">
+                <h1>Product</h1>
+                <p>Amazon</p>
+              </div>
+              <div className="flex flex-col">
+                <div className="flex">
+                  <FaRegBookmark />
+                  <FiShare2 />
+                </div>
+                <div>Button</div>
+              </div>
             </div>
-            <div>
-
-            </div>
+          </div>
+          <div></div>
         </div>
       </section>
     </>
