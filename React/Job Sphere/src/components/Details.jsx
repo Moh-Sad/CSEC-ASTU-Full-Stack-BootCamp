@@ -11,6 +11,7 @@ const Details = () => {
   return (
     <>
       <Navbar />
+
       <section>
         <div className="flex gap-62 p-5">
           {/* Back Bar */}
@@ -42,20 +43,28 @@ const Details = () => {
       </section>
 
       <section>
-        <div className="flex">
-          <div>
-            <div className="flex gap-2">
-              <div>Logo</div>
-              <div className="flex flex-col">
+        {/* Description */}
+        <div>
+          <div className=" ml-20 mt-5 flex bg-[#FFFFFF] rounded-2xl w-200 shadow-2xl dark:shadow-xl dark:shadow-black/50">
+            <div className="ml-20 flex p-2 gap-10 w-full">
+              <div className="flex items-center">Logo</div>
+              <div className="flex flex-col w-full p-5 gap-2">
                 <h1>Product</h1>
-                <p>Amazon</p>
-              </div>
-              <div className="flex flex-col">
-                <div className="flex">
-                  <FaRegBookmark />
-                  <FiShare2 />
+                <div className="flex gap-2">
+                  <p>Amazon</p>
+                  <p className="flex"> * * * * *</p>
                 </div>
-                <div>Button</div>
+              </div>
+              <div className="flex flex-col gap-5 items-end w-full">
+                <div className="flex gap-5 p-2">
+                  <FaRegBookmark size={25} />
+                  <FiShare2 size={25} />
+                </div>
+                <div className="font-[600] p-2">
+                  <button className="cursor-pointer bg-[#0034D1] w-30 h-10 text-white px-4 py-2 rounded-md">
+                    <p>Apply now</p>
+                  </button>
+                </div>
               </div>
             </div>
           </div>

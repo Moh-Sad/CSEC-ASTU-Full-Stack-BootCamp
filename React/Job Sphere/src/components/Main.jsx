@@ -11,7 +11,7 @@ import "./RangeSlider.css";
 const Main = () => {
   const [jobs, setJobs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(4);
+  const [postsPerPage] = useState(3);
   const [savedJobs, setSavedJobs] = useState([]);
   const [filters, setFilters] = useState({
     datePosted: "",
@@ -320,7 +320,7 @@ const Main = () => {
               {currentPosts.map((job) => (
                 <div
                   key={job.id}
-                  className="flex sticky rounded-2xl bg-[#FFFFFF] border-gray-300 border-1 w-full h-full shadow-2xl dark:shadow-xl dark:shadow-black/50 text-[#2F2F2F] p-1"
+                  className="flex sticky rounded-2xl bg-[#FFFFFF] border-gray-300 border-1 w-full h-47 shadow-2xl dark:shadow-xl dark:shadow-black/50 text-[#2F2F2F] p-1"
                 >
                   <div className="flex h-full">
                     <div className="flex w-13 h-13 m-3">
@@ -331,7 +331,7 @@ const Main = () => {
                       />
                     </div>
                   </div>
-                  <div className="flex flex-col w-full py-1 mt-0.5 gap-2 cursor-pointer">
+                  <div className="flex flex-col w-full h-45 py-1 mt-0.5 gap-2 cursor-pointer">
                     <h1 className="font-[600] text-3xl ">{job.title}</h1>
                     <h2 className="font-[400] text-[20px]">{job.company}</h2>
                     <div className="flex gap-2 text-[15px] font-[350]">
