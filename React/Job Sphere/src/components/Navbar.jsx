@@ -6,7 +6,7 @@ const Navbar = () => {
     <>
       {/* Navbar */}
       <section className="flex flex-col z-100">
-        <div className="flex items-center w-[1728px] h-[101.28px]">
+        <div className="flex items-center w-full h-[101.28px]">
           <div className="pl-30">
             {/* Logo */}
             <img className="w-[158px] h-[61.28px]" src={logo} alt="Logo" />
@@ -24,10 +24,10 @@ const Navbar = () => {
 
           {/* Login/Signup */}
           <div className="flex gap-4 font-[600]">
-            <button className="cursor-pointer bg-[#0034D1] w-[167px] h-[48px] text-white px-4 py-2 rounded-md">
+            <button className="cursor-pointer bg-[#0034D1] w-[167px] h-[48px] text-white px-4 py-2 rounded-md hover:scale-110 transition-all duration-300">
               <p>Login</p>
             </button>
-            <button className="cursor-pointer border-1 border-[#0034D1] w-[167px] h-[48px] text-black px-4 py-2 rounded-md">
+            <button className="cursor-pointer border-1 border-[#0034D1] w-[167px] h-[48px] text-black px-4 py-2 rounded-md hover:bg-[#0034D1] hover:text-white">
               <p>Signup</p>
             </button>
           </div>

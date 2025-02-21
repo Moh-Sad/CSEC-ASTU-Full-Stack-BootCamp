@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom"; 
 import { SlLocationPin } from "react-icons/sl";
 import { IoSearchSharp } from "react-icons/io5";
 import { FaRegBookmark, FaBookmark } from "react-icons/fa";
@@ -27,6 +28,8 @@ const Main = () => {
 
   const lastPostIndex = currentPage * postsPerPage;
   const firstPostIndex = lastPostIndex - postsPerPage;
+
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     const fetchData = async () => {
@@ -115,6 +118,10 @@ const Main = () => {
   const currentPosts = filteredJobs.slice(firstPostIndex, lastPostIndex);
   const paginate = (pageNumber) => setCurrentPage(pageNumber);
 
+  const handleJobClick = (jobId) => {
+    navigate(`/details/${jobId}`);
+  };
+
   return (
     <>
       <div className="flex gap-5 px-5">
@@ -179,6 +186,7 @@ const Main = () => {
                 placeholder="Enter your location"
                 value={filters.location}
                 onChange={(e) => handleFilterChange("location", e.target.value)}
+                className="outline-none"
               />
             </div>
           </div>
@@ -218,7 +226,7 @@ const Main = () => {
                 <p>From</p>
                 <input
                   type="text"
-                  className="flex w-[37px] h-[23px] rounded-[8px] border-gray-300 border-2 cursor-pointer focus:w-[100px] focus:h-[30px] transition-all duration-100"
+                  className="flex w-[37px] h-[23px] rounded-[8px] border-gray-300 border-2 cursor-pointer focus:w-[100px] focus:h-[30px] transition-all duration-100 outline-none"
                   value={filters.salaryRange[0]}
                   onChange={(e) =>
                     handleFilterChange("salaryRange", [
@@ -233,7 +241,7 @@ const Main = () => {
                 <p>To</p>
                 <input
                   type="text"
-                  className="flex w-[37px] h-[23px] rounded-[8px] border-gray-300 border-2 cursor-pointer justify-center focus:w-[100px] focus:h-[30px] transition-all duration-100"
+                  className="flex w-[37px] h-[23px] rounded-[8px] border-gray-300 border-2 cursor-pointer justify-center focus:w-[100px] focus:h-[30px] transition-all duration-100 outline-none"
                   value={filters.salaryRange[1]}
                   onChange={(e) =>
                     handleFilterChange("salaryRange", [
@@ -289,7 +297,7 @@ const Main = () => {
             <IoSearchSharp className="flex items-center mt-3" size="18px" />
             <input
               type="text"
-              className="w-75 ml-1 p-1 cursor-pointer"
+              className="w-75 ml-1 p-1 cursor-pointer outline-none"
               placeholder="Job title, Keywords, or Company name"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
@@ -331,7 +339,10 @@ const Main = () => {
                       />
                     </div>
                   </div>
-                  <div className="flex flex-col w-full h-45 py-1 mt-0.5 gap-2 cursor-pointer">
+                  <div
+                    className="flex flex-col w-full h-45 py-1 mt-0.5 gap-2 cursor-pointer"
+                    onClick={() => handleJobClick(job.id)}
+                  >
                     <h1 className="font-[600] text-3xl">{job.title}</h1>
                     <h2 className="font-[400] text-[20px]">{job.company}</h2>
                     <div className="flex gap-2 text-[15px] font-[350]">
@@ -351,19 +362,21 @@ const Main = () => {
                       <p>{job.description}</p>
                     </div>
                   </div>
-                  <div className="flex gap-5 m-3 h-10 cursor-pointer">
+                  <div className="flex gap-5 m-3 h-10">
                     {job.isBookmarked ? (
                       <FaBookmark
                         size="20px"
                         onClick={() => handleMark(job.id)}
+                        className="cursor-pointer"
                       />
                     ) : (
                       <FaRegBookmark
                         size="20px"
                         onClick={() => handleMark(job.id)}
+                        className="cursor-pointer"
                       />
                     )}
-                    <FiShare2 className="" size="20px" />
+                    <FiShare2 className="cursor-pointer" size="20px" />
                   </div>
                 </div>
               ))}
@@ -439,7 +452,7 @@ const Main = () => {
           <h1 className="flex justify-center items-center font-[600] text-3xl">
             Saved Jobs
           </h1>
-          {savedJobs.length === 0 ? ( 
+          {savedJobs.length === 0 ? (
             <div className="flex justify-center items-center h-64">
               <p className="text-[#2F2F2F] font-[400] text-lg">
                 No jobs have been saved yet.
