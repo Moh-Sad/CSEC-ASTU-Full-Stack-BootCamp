@@ -332,7 +332,7 @@ const Main = () => {
                     </div>
                   </div>
                   <div className="flex flex-col w-full h-45 py-1 mt-0.5 gap-2 cursor-pointer">
-                    <h1 className="font-[600] text-3xl ">{job.title}</h1>
+                    <h1 className="font-[600] text-3xl">{job.title}</h1>
                     <h2 className="font-[400] text-[20px]">{job.company}</h2>
                     <div className="flex gap-2 text-[15px] font-[350]">
                       <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
