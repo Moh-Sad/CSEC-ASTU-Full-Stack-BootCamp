@@ -1,4 +1,3 @@
-import React from "react";
 import { useNavigate } from "react-router-dom"; 
 import Rafiki from "./images/rafiki.png";
 import Logo from "./images/Logo.png";
@@ -72,7 +71,7 @@ const Login = () => {
             </div>
           </div>
           <div className="flex gap-3">
-            <p className="font-[600]">Don't have an account?</p>
+            <p className="font-[600]">Don&apos;t have an account?</p>
             <span
               className="font-[600] text-[#0034D2] cursor-pointer"
               onClick={() => navigate(`/signup`)}
