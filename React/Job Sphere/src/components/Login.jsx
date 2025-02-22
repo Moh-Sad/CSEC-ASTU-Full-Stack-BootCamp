@@ -1,13 +1,21 @@
 import React from "react";
+import { useNavigate } from "react-router-dom"; 
 import Rafiki from "./images/rafiki.png";
 import Logo from "./images/Logo.png";
 import { FiMail } from "react-icons/fi";
 import { CiLock } from "react-icons/ci";
+import Google from "./images/Social Button.png";
+import Apple from "./images/Apple - Original.png";
+import Facebook from "./images/Facebook - Original.png";
+import LinkedIn from "./images/LinkedIn - Original.png";
 
 const Login = () => {
+
+  const navigate = useNavigate()
+
   return (
     <div className="flex w-screen h-screen">
-      <section className="flex items-center justify-center w-1/2 h-screen bg-[#F2F2F2] shadow-[6px_0_10px_-2px_rgba(0,0,0,0.2)] dark:shadow-[6px_0_10px_-2px_rgba(0,0,0,0.4)]">
+      <section className="flex items-center justify-center w-1/2 h-screen bg-[#F2F2F2] shadow-xl shadow-black/50 z-10">
         {/* Image */}
         <img src={Rafiki} alt="Logo" className="w-130 h-100" />
       </section>
@@ -43,9 +51,32 @@ const Login = () => {
             Login
           </button>
           <div className="flex items-center gap-2">
+            {/* Border line */}
             <div className="border-1 border-gray-300 w-35 h-0"></div>
             <h1>OR</h1>
             <div className="border-1 border-gray-300 w-35 h-0"></div>
+          </div>
+          <div className="flex gap-10">
+            {/* Social Media */}
+            <div className="cursor-pointer">
+              <img src={Google} alt="Google Logo" className="w-12 h-12" />
+            </div>
+            <div className="border-2 border-gray-200 rounded-[8px] p-2 w-fit h-fit cursor-pointer">
+              <img src={Apple} alt="Apple Logo" className="w-7 h-7" />
+            </div>
+            <div className="border-2 border-gray-200 rounded-[8px] p-2 w-fit h-fit cursor-pointer">
+              <img src={Facebook} alt="Facebook Logo" className="w-7 h-7" />
+            </div>
+            <div className="border-2 border-gray-200 rounded-[8px] p-2 w-fit h-fit cursor-pointer">
+              <img src={LinkedIn} alt="LinkedIn Logo" className="w-7 h-7" />
+            </div>
+          </div>
+          <div className="flex gap-3">
+            <p className="font-[600]">Don't have an account?</p>
+            <span
+              className="font-[600] text-[#0034D2] cursor-pointer"
+              onClick={() => navigate(`/signup`)}
+            >Create account</span>
           </div>
         </form>
       </section>

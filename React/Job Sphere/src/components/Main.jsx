@@ -126,7 +126,7 @@ const Main = () => {
     <>
       <div className="flex gap-5 px-5">
         {/* Filter Section */}
-        <div className="flex flex-col my-10 w-250 h-full bg-[#FFFFFF] rounded-2xl text-[#2F2F2F] p-2 gap-4 shadow-2xl dark:shadow-xl dark:shadow-black/50">
+        <div className="flex flex-col my-10 w-250 h-full bg-[#FFFFFF] rounded-2xl text-[#2F2F2F] p-2 gap-4 shadow-xl shadow-black/50">
           <h1 className="flex justify-center font-[600] text-3xl">Filter</h1>
 
           <div className="flex flex-col gap-1">
