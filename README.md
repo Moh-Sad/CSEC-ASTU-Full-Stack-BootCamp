@@ -336,7 +336,7 @@ export default App;
 ---
 
 ### **Highlights:**
-- It was exciting to see how React simplifies building dynamic and reusable UI components.  
+- It was exciting to see how React simplifies building dynamic and reusable UI components.
 - The concept of **props** and **component-based architecture** made it clear why React is so powerful for front-end development.  
 - The **virtual DOM** explanation helped us understand how React optimizes performance.  
 

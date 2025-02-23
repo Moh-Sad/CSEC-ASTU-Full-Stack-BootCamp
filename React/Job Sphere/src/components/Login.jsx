@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import Rafiki from "./images/rafiki.png";
 import Logo from "./images/Logo.png";
 import { FiMail } from "react-icons/fi";
-import { CiLock } from "react-icons/ci";
+import Lock from "./images/Lock.png"
 import Google from "./images/Social Button.png";
 import Apple from "./images/Apple - Original.png";
 import Facebook from "./images/Facebook - Original.png";
@@ -36,7 +36,7 @@ const Login = () => {
             />
           </div>
           <div className="flex items-center border-1 border-gray-300 rounded-[8px] w-full h-10 p-2">
-            <CiLock className="w-6 h-6" />
+            <img src={Lock} alt="Lock icon" className="w-6 h-6" />
             <input
               type="password"
               className="w-60 h-6 p-2 outline-none"
