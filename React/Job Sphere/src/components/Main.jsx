@@ -35,16 +35,15 @@ const Main = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://joblisting-3hjv.onrender.com/api/jobs"
+          "https://joblisting-3hjv.onrender.com/api/jobs?limit=100"
         );
         const data = await response.json();
         const jobsWithLogos = data.jobs.map((job) => ({
           ...job,
           logo: job.logo || "https://via.placeholder.com/150",
-          isBookmarked: false,
         }));
         setJobs(jobsWithLogos);
-        console.log(jobs)
+        console.log(data);
       } catch (error) {
         console.error("Error fetching jobs:", error);
       } finally {
@@ -152,8 +151,8 @@ const Main = () => {
             <p>Job Type</p>
             <div className="flex-col rounded-[8px] border-gray-300 border-2 gap-4 py-3 font-[390] ml-1">
               {[
-                "Full-Time",
-                "Part-Time",
+                "Full-time",
+                "Part-time",
                 "Internship",
                 "Contract",
                 "Volunteer",
@@ -355,7 +354,7 @@ const Main = () => {
                       </div>
                       <div className="rounded-[4px] bg-[#EBEBEB] justify-center items-center p-1">
                         <p className="flex justify-center">
-                          ${200} - {job.salary}
+                          ${200} - ${job.salary}
                         </p>
                       </div>
                     </div>
@@ -483,7 +482,7 @@ const Main = () => {
                     </div>
                     <div className="w-full h-full rounded-[4px] bg-[#EBEBEB] justify-center items-center p-0.5">
                       <p className="flex justify-center">
-                        ${200} - {job.salary}
+                        ${200} - ${job.salary}
                       </p>
                     </div>
                   </div>

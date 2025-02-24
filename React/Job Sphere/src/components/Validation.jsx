@@ -16,9 +16,9 @@ const Validation = () => {
     description: "",
     company: "",
     logo: "",
-    mark: "",
+    isBookMarked: "",
     location: "",
-    experience: "",
+    experienceLevel: "",
     currency: "",
   };
 
@@ -28,34 +28,61 @@ const Validation = () => {
       .min(3, "Job Title must be at least 3 characters"),
     type: Yup.string()
       .required("Job Type is required")
-      .min(3, "Job Type must be at least 3 characters"),
+      .oneOf(
+        ["Full-time", "Part-time", "Contract", "Internship"],
+        "Invalid job type"
+      ),
     salary: Yup.number()
       .required("Job Salary is required")
       .positive("Salary must be positive"),
     description: Yup.string()
       .required("Job Description is required")
-      .max(50, "Description must not exceed 50 characters")
       .min(3, "Description must be at least 3 characters"),
     company: Yup.string()
       .required("Job Company is required")
       .min(3, "Job Company must be at least 3 characters"),
     logo: Yup.string()
       .required("Job Logo is required")
-      .min(3, "Job Logo must be at least 3 characters"),
+      .url("Logo must be a valid URL"),
+    isBookMarked: Yup.string()
+      .required("Job Book Mark is required")
+      .oneOf(["true", "false"], "Book Mark must be either 'true' or 'false'"),
     location: Yup.string()
       .required("Job Location is required")
       .min(3, "Job Location must be at least 3 characters"),
-    experience: Yup.string()
+    experienceLevel: Yup.string()
       .required("Job Experience is required")
-      .min(3, "Job Experience must be at least 3 characters"),
+      .oneOf(
+        ["Entry Level", "Mid Level", "Senior Level"],
+        "Invalid experience level"
+      ),
     currency: Yup.string()
       .required("Job Currency is required")
-      .min(3, "Job Currency must be at least 3 characters"),
+      .matches(/^[A-Z]{3}$/, "Currency must be exactly 3 uppercase letters"),
   });
 
-  const handleSubmit = (values) => {
-    alert("Form submitted successfully!");
-    console.log("Form values:", values);
+  const handleSubmit = async (values) => {
+    try {
+      const response = await fetch(
+        "https://joblisting-rd8f.onrender.com/api/jobs",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      console.log("Form submitted successfully:", result);
+    } catch (error) {
+      console.error("Form submission failed:", error);
+    }
   };
 
   const validateStep = async (values, step) => {
@@ -63,36 +90,59 @@ const Validation = () => {
 
     if (step === 0) {
       if (!values.title) errors.title = "Job Title is required";
-      else if (values.title.length < 3) errors.title = "Job Title must be at least 3 characters";
+      else if (values.title.length < 3)
+        errors.title = "Job Title must be at least 3 characters";
 
       if (!values.type) errors.type = "Job Type is required";
-      else if (values.type.length < 3) errors.type = "Job Type must be at least 3 characters";
+      else if (
+        !["Full-time", "Part-time", "Contract", "Internship"].includes(
+          values.type
+        )
+      )
+        errors.type = "Invalid job type";
 
       if (!values.salary) errors.salary = "Job Salary is required";
       else if (isNaN(values.salary)) errors.salary = "Salary must be a number";
       else if (values.salary <= 0) errors.salary = "Salary must be positive";
     } else if (step === 1) {
-      if (!values.description) errors.description = "Job Description is required";
-      else if (values.description.length > 50) errors.description = "Description must not exceed 50 characters";
-      else if (values.description.length < 3) errors.description = "Description must be at least 3 characters";
+      if (!values.description)
+        errors.description = "Job Description is required";
+      else if (values.description.length < 3)
+        errors.description = "Description must be at least 3 characters";
 
       if (!values.company) errors.company = "Job Company is required";
-      else if (values.company.length < 3) errors.company = "Job Company must be at least 3 characters";
+      else if (values.company.length < 3)
+        errors.company = "Job Company must be at least 3 characters";
 
       if (!values.logo) errors.logo = "Job Logo is required";
-      else if (values.logo.length < 3) errors.logo = "Job Logo must be at least 3 characters";
+      else if (
+        !/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)(@\dx)?(\.[a-z]+)?$/.test(
+          values.logo
+        )
+      )
+        errors.logo = "Logo must be a valid URL";
     } else if (step === 2) {
-      if (!values.mark) errors.mark = "Job Book Mark is required";
-      else if (values.mark !== "true" && values.mark !== "false") errors.mark = "Job Book Mark must be either 'true' or 'false'";
+      if (!values.isBookMarked)
+        errors.isBookMarked = "Job Book Mark is required";
+      else if (!["true", "false"].includes(values.isBookMarked))
+        errors.isBookMarked = "Job Book Mark must be either 'true' or 'false'";
 
       if (!values.location) errors.location = "Job Location is required";
-      else if (values.location.length < 3) errors.location = "Job Location must be at least 3 characters";
+      else if (values.location.length < 3)
+        errors.location = "Job Location must be at least 3 characters";
 
-      if (!values.experience) errors.experience = "Job Experience is required";
-      else if (values.experience.length < 3) errors.experience = "Job Experience must be at least 3 characters";
+      if (!values.experienceLevel)
+        errors.experienceLevel = "Job Experience is required";
+      else if (
+        !["Entry Level", "Mid Level", "Senior Level"].includes(
+          values.experienceLevel
+        )
+      )
+        errors.experienceLevel = "Invalid experience level";
 
       if (!values.currency) errors.currency = "Job Currency is required";
-      else if (values.currency.length < 3) errors.currency = "Job Currency must be at least 3 characters";
+      else if (!/^[A-Z]{3}$/.test(values.currency))
+        errors.currency = "Currency must be exactly 3 uppercase letters";
     }
 
     return errors;
@@ -124,8 +174,8 @@ const Validation = () => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ values, setFieldTouched, validateForm, errors, touched }) => (
-            <Form className="flex flex-col gap-5 items-center p-5 m-5 rounded-2xl border-1 border-gray-500 w-200">
+          {({ values, errors, touched }) => (
+            <Form className="flex flex-col gap-5 items-center p-5 m-5 rounded-2xl border-1 border-gray-500 w-200 bg-[#FFFFF]">
               {activeStep === 0 && (
                 <>
                   <div className="flex flex-col gap-2 w-full max-w-xs">
@@ -142,12 +192,17 @@ const Validation = () => {
                   </div>
                   <div className="flex flex-col gap-2 w-full max-w-xs">
                     <Field
+                      as="select"
                       id="type"
                       name="type"
-                      type="text"
-                      placeholder="Job Type"
                       className="h-10 w-full border-1 border-gray-300 rounded-2xl p-3 cursor-pointer"
-                    />
+                    >
+                      <option value="">Select Job Type</option>
+                      <option value="Full-time">Full-time</option>
+                      <option value="Part-time">Part-time</option>
+                      <option value="Contract">Contract</option>
+                      <option value="Internship">Internship</option>
+                    </Field>
                     {errors.type && touched.type && (
                       <div className="text-red-500 text-sm">{errors.type}</div>
                     )}
@@ -161,7 +216,9 @@ const Validation = () => {
                       className="h-10 w-full border-1 border-gray-300 rounded-2xl p-3 cursor-pointer"
                     />
                     {errors.salary && touched.salary && (
-                      <div className="text-red-500 text-sm">{errors.salary}</div>
+                      <div className="text-red-500 text-sm max-w-100">
+                        {errors.salary}
+                      </div>
                     )}
                   </div>
                 </>
@@ -178,7 +235,9 @@ const Validation = () => {
                       className="h-10 w-full border-1 border-gray-300 rounded-2xl p-3 cursor-pointer"
                     />
                     {errors.description && touched.description && (
-                      <div className="text-red-500 text-sm">{errors.description}</div>
+                      <div className="text-red-500 text-sm">
+                        {errors.description}
+                      </div>
                     )}
                   </div>
                   <div className="flex flex-col gap-2 w-full max-w-xs">
@@ -190,7 +249,9 @@ const Validation = () => {
                       className="h-10 w-full border-1 border-gray-300 rounded-2xl p-3 cursor-pointer"
                     />
                     {errors.company && touched.company && (
-                      <div className="text-red-500 text-sm">{errors.company}</div>
+                      <div className="text-red-500 text-sm">
+                        {errors.company}
+                      </div>
                     )}
                   </div>
                   <div className="flex flex-col gap-2 w-full max-w-xs">
@@ -198,7 +259,7 @@ const Validation = () => {
                       id="logo"
                       name="logo"
                       type="text"
-                      placeholder="Job Logo"
+                      placeholder="Job Logo URL"
                       className="h-10 w-full border-1 border-gray-300 rounded-2xl p-3 cursor-pointer"
                     />
                     {errors.logo && touched.logo && (
@@ -212,14 +273,19 @@ const Validation = () => {
                 <>
                   <div className="flex flex-col gap-2 w-full max-w-xs">
                     <Field
-                      id="mark"
-                      name="mark"
-                      type="text"
-                      placeholder="Job Book Mark (true/false)"
+                      as="select"
+                      id="isBookMarked"
+                      name="isBookMarked"
                       className="h-10 w-full border-1 border-gray-300 rounded-2xl p-3 cursor-pointer"
-                    />
-                    {errors.mark && touched.mark && (
-                      <div className="text-red-500 text-sm">{errors.mark}</div>
+                    >
+                      <option value="">Select Book Mark</option>
+                      <option value="true">true</option>
+                      <option value="false">false</option>
+                    </Field>
+                    {errors.isBookMarked && touched.isBookMarked && (
+                      <div className="text-red-500 text-sm">
+                        {errors.isBookMarked}
+                      </div>
                     )}
                   </div>
                   <div className="flex flex-col gap-2 w-full max-w-xs">
@@ -231,19 +297,27 @@ const Validation = () => {
                       className="h-10 w-full border-1 border-gray-300 rounded-2xl p-3 cursor-pointer"
                     />
                     {errors.location && touched.location && (
-                      <div className="text-red-500 text-sm">{errors.location}</div>
+                      <div className="text-red-500 text-sm">
+                        {errors.location}
+                      </div>
                     )}
                   </div>
                   <div className="flex flex-col gap-2 w-full max-w-xs">
                     <Field
-                      id="experience"
-                      name="experience"
-                      type="text"
-                      placeholder="Job Experience"
+                      as="select"
+                      id="experienceLevel"
+                      name="experienceLevel"
                       className="h-10 w-full border-1 border-gray-300 rounded-2xl p-3 cursor-pointer"
-                    />
-                    {errors.experience && touched.experience && (
-                      <div className="text-red-500 text-sm">{errors.experience}</div>
+                    >
+                      <option value="">Select Experience Level</option>
+                      <option value="Entry Level">Entry Level</option>
+                      <option value="Mid Level">Mid Level</option>
+                      <option value="Senior Level">Senior Level</option>
+                    </Field>
+                    {errors.experienceLevel && touched.experienceLevel && (
+                      <div className="text-red-500 text-sm">
+                        {errors.experienceLevel}
+                      </div>
                     )}
                   </div>
                   <div className="flex flex-col gap-2 w-full max-w-xs">
@@ -251,17 +325,19 @@ const Validation = () => {
                       id="currency"
                       name="currency"
                       type="text"
-                      placeholder="Job Currency"
+                      placeholder="Job Currency (e.g., USD)"
                       className="h-10 w-full border-1 border-gray-300 rounded-2xl p-3 cursor-pointer"
                     />
                     {errors.currency && touched.currency && (
-                      <div className="text-red-500 text-sm">{errors.currency}</div>
+                      <div className="text-red-500 text-sm">
+                        {errors.currency}
+                      </div>
                     )}
                   </div>
                 </>
               )}
 
-              <div className="flex gap-4">
+              <div className="flex items-center gap-4">
                 {activeStep > 0 && (
                   <button
                     type="button"
@@ -273,7 +349,6 @@ const Validation = () => {
                 )}
 
                 {activeStep < steps.length - 1 ? (
-                  <>
                     <button
                       type="button"
                       onClick={async () => {
@@ -282,15 +357,15 @@ const Validation = () => {
                           setStepError("");
                           setActiveStep((prevStep) => prevStep + 1);
                         } else {
-                          setStepError("Please fill out all fields correctly before proceeding.");
+                          setStepError(
+                            "Please fill out all fields correctly before proceeding."
+                          );
                         }
                       }}
                       className="bg-[#0034D1] text-white w-28 h-10 rounded-2xl cursor-pointer"
                     >
                       Next
                     </button>
-                    {stepError && <div className="text-red-500 text-sm mt-2">{stepError}</div>}
-                  </>
                 ) : (
                   <button
                     type="submit"
@@ -300,6 +375,11 @@ const Validation = () => {
                   </button>
                 )}
               </div>
+              {stepError && (
+                      <div className="text-red-500 text-sm mt-2">
+                        {stepError}
+                      </div>
+                    )}
             </Form>
           )}
         </Formik>
