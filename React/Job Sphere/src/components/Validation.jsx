@@ -6,6 +6,7 @@ import * as Yup from "yup";
 const Validation = () => {
   const [activeStep, setActiveStep] = useState(0);
   const [stepError, setStepError] = useState("");
+  const [submitError, setSubmitError] = useState("");
 
   const steps = [{ label: "Step 1" }, { label: "Step 2" }, { label: "Step 3" }];
 
@@ -16,7 +17,7 @@ const Validation = () => {
     description: "",
     company: "",
     logo: "",
-    isBookMarked: "",
+    isBookMarked: false,
     location: "",
     experienceLevel: "",
     currency: "",
@@ -44,9 +45,7 @@ const Validation = () => {
     logo: Yup.string()
       .required("Job Logo is required")
       .url("Logo must be a valid URL"),
-    isBookMarked: Yup.string()
-      .required("Job Book Mark is required")
-      .oneOf(["true", "false"], "Book Mark must be either 'true' or 'false'"),
+    isBookMarked: Yup.boolean().required("Job Book Mark is required"),
     location: Yup.string()
       .required("Job Location is required")
       .min(3, "Job Location must be at least 3 characters"),
@@ -82,6 +81,7 @@ const Validation = () => {
       console.log("Form submitted successfully:", result);
     } catch (error) {
       console.error("Form submission failed:", error);
+      setSubmitError("Form submission failed. Please try again.");
     }
   };
 
@@ -116,16 +116,14 @@ const Validation = () => {
 
       if (!values.logo) errors.logo = "Job Logo is required";
       else if (
-        !/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)(@\dx)?(\.[a-z]+)?$/.test(
+        !/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(
           values.logo
         )
       )
         errors.logo = "Logo must be a valid URL";
     } else if (step === 2) {
-      if (!values.isBookMarked)
+      if (values.isBookMarked === undefined || values.isBookMarked === null)
         errors.isBookMarked = "Job Book Mark is required";
-      else if (!["true", "false"].includes(values.isBookMarked))
-        errors.isBookMarked = "Job Book Mark must be either 'true' or 'false'";
 
       if (!values.location) errors.location = "Job Location is required";
       else if (values.location.length < 3)
@@ -175,7 +173,7 @@ const Validation = () => {
           onSubmit={handleSubmit}
         >
           {({ values, errors, touched }) => (
-            <Form className="flex flex-col gap-5 items-center p-5 m-5 rounded-2xl border-1 border-gray-500 w-200 bg-[#FFFFF]">
+            <Form className="flex flex-col gap-5 items-center p-5 m-5 rounded-2xl border-1 border-gray-500 w-100 bg-white">
               {activeStep === 0 && (
                 <>
                   <div className="flex flex-col gap-2 w-full max-w-xs">
@@ -279,8 +277,8 @@ const Validation = () => {
                       className="h-10 w-full border-1 border-gray-300 rounded-2xl p-3 cursor-pointer"
                     >
                       <option value="">Select Book Mark</option>
-                      <option value="true">true</option>
-                      <option value="false">false</option>
+                      <option value={true}>true</option>
+                      <option value={false}>false</option>
                     </Field>
                     {errors.isBookMarked && touched.isBookMarked && (
                       <div className="text-red-500 text-sm">
@@ -349,23 +347,23 @@ const Validation = () => {
                 )}
 
                 {activeStep < steps.length - 1 ? (
-                    <button
-                      type="button"
-                      onClick={async () => {
-                        const errors = await validateStep(values, activeStep);
-                        if (Object.keys(errors).length === 0) {
-                          setStepError("");
-                          setActiveStep((prevStep) => prevStep + 1);
-                        } else {
-                          setStepError(
-                            "Please fill out all fields correctly before proceeding."
-                          );
-                        }
-                      }}
-                      className="bg-[#0034D1] text-white w-28 h-10 rounded-2xl cursor-pointer"
-                    >
-                      Next
-                    </button>
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      const errors = await validateStep(values, activeStep);
+                      if (Object.keys(errors).length === 0) {
+                        setStepError("");
+                        setActiveStep((prevStep) => prevStep + 1);
+                      } else {
+                        setStepError(
+                          "Please fill out all fields correctly before proceeding."
+                        );
+                      }
+                    }}
+                    className="bg-[#0034D1] text-white w-28 h-10 rounded-2xl cursor-pointer"
+                  >
+                    Next
+                  </button>
                 ) : (
                   <button
                     type="submit"
@@ -376,10 +374,11 @@ const Validation = () => {
                 )}
               </div>
               {stepError && (
-                      <div className="text-red-500 text-sm mt-2">
-                        {stepError}
-                      </div>
-                    )}
+                <div className="text-red-500 text-sm mt-2">{stepError}</div>
+              )}
+              {submitError && (
+                <div className="text-red-500 text-sm mt-2">{submitError}</div>
+              )}
             </Form>
           )}
         </Formik>
