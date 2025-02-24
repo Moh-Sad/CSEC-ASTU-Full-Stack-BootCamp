@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom"; 
 import { SlLocationPin } from "react-icons/sl";
 import { IoSearchSharp } from "react-icons/io5";
@@ -35,7 +35,7 @@ const Main = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "https://joblisting-rd8f.onrender.com/api/jobs?limit=50"
+          "https://joblisting-3hjv.onrender.com/api/jobs"
         );
         const data = await response.json();
         const jobsWithLogos = data.jobs.map((job) => ({
@@ -44,6 +44,7 @@ const Main = () => {
           isBookmarked: false,
         }));
         setJobs(jobsWithLogos);
+        console.log(jobs)
       } catch (error) {
         console.error("Error fetching jobs:", error);
       } finally {
