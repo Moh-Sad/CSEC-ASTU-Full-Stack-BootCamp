@@ -1,5 +1,7 @@
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom"; 
+import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
-import React, { useState, useEffect } from "react";
 import { SlLocationPin } from "react-icons/sl";
 import { IoSearchSharp } from "react-icons/io5";
 import { MdOutlineArrowBackIos } from "react-icons/md";
@@ -9,48 +11,53 @@ import { IoCloseOutline } from "react-icons/io5";
 import Logo from "./images/Logo.png";
 
 const Details = () => {
-  const [jobs, setJobs] = useState([]);
+  const { id } = useParams(); 
+  const [job, setJob] = useState(null);
+  const [loading, setLoading] = useState(true); 
   const [savedJobs, setSavedJobs] = useState([]);
 
+  const navigate = useNavigate();
+  
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchJobDetails = async () => {
       try {
         const response = await fetch(
-          "https://joblisting-rd8f.onrender.com/api/jobs?limit=50"
+          `https://joblisting-3hjv.onrender.com/api/jobs/${id}`
         );
+        if (!response.ok) {
+          throw new Error("Job not found");
+        }
         const data = await response.json();
-        const jobsWithLogos = data.jobs.map((job) => ({
-          ...job,
-          logo: job.logo || "https://via.placeholder.com/150",
-          isBookmarked: false,
-        }));
-        setJobs(jobsWithLogos);
+        setJob(data);
       } catch (error) {
-        console.error("Error fetching jobs:", error);
+        console.error("Error fetching job details:", error);
       } finally {
         setLoading(false);
       }
     };
-    fetchData();
-  }, []);
+
+    fetchJobDetails();
+  }, [id]); 
 
   const handleMark = (jobId) => {
-    setJobs((prevJobs) =>
-      prevJobs.map((job) =>
-        job.id === jobId ? { ...job, isBookmarked: !job.isBookmarked } : job
-      )
-    );
-
     setSavedJobs((prevSavedJobs) => {
       const jobIndex = prevSavedJobs.findIndex((job) => job.id === jobId);
       if (jobIndex === -1) {
-        const jobToAdd = jobs.find((job) => job.id === jobId);
+        const jobToAdd = job; 
         return [...prevSavedJobs, { ...jobToAdd, isBookmarked: true }];
       } else {
         return prevSavedJobs.filter((job) => job.id !== jobId);
       }
     });
   };
+
+  if (loading) {
+    return <div>Loading...</div>; 
+  }
+
+  if (!job) {
+    return <div>Job not found</div>;
+  }
 
   return (
     <>
@@ -89,21 +96,21 @@ const Details = () => {
       <section>
         <div className="flex text-[#2F2F2F] gap-5">
           {/* Description */}
-          <div className=" ml-20 my-5 bg-[#FFFFFF] rounded-2xl w-full shadow-2xl dark:shadow-xl dark:shadow-black/50">
+          <div className="ml-20 my-5 bg-[#FFFFFF] rounded-2xl w-full shadow-2xl dark:shadow-xl dark:shadow-black/50">
             <div className="flex p-2 w-full">
               <div className="flex pt-10 px-5">
                 <div className="flex w-13 h-13">
                   <img
-                    src={Logo}
-                    alt={`$company} Logo`}
+                    src={job.logo || Logo} 
+                    alt={`${job.company} Logo`}
                     className="w-full object-cover rounded-full"
                   />
                 </div>
               </div>
               <div className="flex flex-col w-full h-25 py-1 mt-0.5 gap-1 pt-8">
-                <h1 className="font-[600] text-3xl">Product Name</h1>
+                <h1 className="font-[600] text-3xl">{job.title}</h1>
                 <div className="flex font-[400] text-[20px] gap-2">
-                  <p>Company Name</p>
+                  <p>{job.company}</p>
                   <p>* * * * *</p>
                 </div>
               </div>
@@ -123,72 +130,35 @@ const Details = () => {
               <div className="flex flex-col px-10 py-5 gap-4">
                 <div className="flex flex-col">
                   <p className="font-[600] text-[18px]">Job type:</p>
-                  <p className="font-[400]">Full-time</p>
+                  <p className="font-[400]">{job.type}</p>
                 </div>
                 <div className="flex flex-col">
                   <p className="font-[600] text-[18px]">Location:</p>
-                  <p className="font-[400]">Addis Ababa</p>
+                  <p className="font-[400]">{job.location}</p>
                 </div>
                 <div className="flex flex-col">
                   <p className="font-[600] text-[18px]">Experience:</p>
-                  <p className="font-[400]">5 years</p>
+                  <p className="font-[400]">{job.experienceLevel}</p>
                 </div>
                 <div className="flex flex-col">
                   <p className="font-[600] text-[18px]">Number of</p>
                   <p className="font-[600] text-[18px]">Applicants:</p>
-                  <p className="font-[400]">40</p>
+                  <p className="font-[400]">{job.applicants || "N/A"}</p>
                 </div>
               </div>
               <div className="fle flex-col gap-5 p-2">
                 <div className="flex flex-col gap-2 p-2">
                   <h2 className="font-[600] text-[18px]">Job description</h2>
-                  <p>
-                    Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                    Iure sequi natus consequatur. Accusamus dolorum eaque quae,
-                    blanditiis iusto provident! Laboriosam dicta optio, impedit
-                    dolores corrupti officiis iure repellat quae eos libero
-                    consectetur enim corporis eaque dolore eveniet dolor odit
-                    reiciendis exercitationem tempora. Illo dolorem amet
-                    laboriosam recusandae, optio sit voluptates perferendis
-                    praesentium sequi, neque fugit rem eius temporibus
-                    laudantium fugiat officia quo in provident voluptatum,
-                    dignissimos eos cum. Cum perspiciatis id exercitationem
-                    laborum commodi vel facere qui, quos tempora ipsum corrupti
-                    amet tempore eos! Molestiae alias et culpa saepe, neque
-                    numquam incidunt tempore minus reprehenderit? Blanditiis,
-                    neque quibusdam. Corrupti, iste.
-                  </p>
+                  <p>{job.description}</p>
                 </div>
                 <div className="flex flex-col gap-2 p-2">
                   <h2 className="font-[600] text-[18px]">
                     Key Responsibilities
                   </h2>
                   <ul className="list-disc pl-7">
-                    <li>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Facere laudantium ipsam, saepe atque sequi voluptas
-                      delectus excepturi voluptate possimus reiciendis?
-                    </li>
-                    <li>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Facere laudantium ipsam, saepe atque sequi voluptas
-                      delectus excepturi voluptate possimus reiciendis?
-                    </li>
-                    <li>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Facere laudantium ipsam, saepe atque sequi voluptas
-                      delectus excepturi voluptate possimus reiciendis?
-                    </li>
-                    <li>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Facere laudantium ipsam, saepe atque sequi voluptas
-                      delectus excepturi voluptate possimus reiciendis?
-                    </li>
-                    <li>
-                      Lorem ipsum, dolor sit amet consectetur adipisicing elit.
-                      Facere laudantium ipsam, saepe atque sequi voluptas
-                      delectus excepturi voluptate possimus reiciendis?
-                    </li>
+                    {job.responsibilities?.map((responsibility, index) => (
+                      <li key={index}>{responsibility}</li>
+                    ))}
                   </ul>
                 </div>
               </div>

@@ -63,7 +63,7 @@ const Validation = () => {
   const handleSubmit = async (values) => {
     try {
       const response = await fetch(
-        "https://joblisting-rd8f.onrender.com/api/jobs",
+        "https://joblisting-3hjv.onrender.com/api/jobs",
         {
           method: "POST",
           headers: {
@@ -114,13 +114,6 @@ const Validation = () => {
       else if (values.company.length < 3)
         errors.company = "Job Company must be at least 3 characters";
 
-      if (!values.logo) errors.logo = "Job Logo is required";
-      else if (
-        !/^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/.test(
-          values.logo
-        )
-      )
-        errors.logo = "Logo must be a valid URL";
     } else if (step === 2) {
       if (values.isBookMarked === undefined || values.isBookMarked === null)
         errors.isBookMarked = "Job Book Mark is required";
