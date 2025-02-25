@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom"; 
+import { useParams } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import { SlLocationPin } from "react-icons/sl";
@@ -11,13 +11,13 @@ import { IoCloseOutline } from "react-icons/io5";
 import Logo from "./images/Logo.png";
 
 const Details = () => {
-  const { id } = useParams(); 
+  const { id } = useParams();
   const [job, setJob] = useState(null);
-  const [loading, setLoading] = useState(true); 
+  const [loading, setLoading] = useState(true);
   const [savedJobs, setSavedJobs] = useState([]);
 
   const navigate = useNavigate();
-  
+
   useEffect(() => {
     const fetchJobDetails = async () => {
       try {
@@ -37,13 +37,13 @@ const Details = () => {
     };
 
     fetchJobDetails();
-  }, [id]); 
+  }, [id]);
 
   const handleMark = (jobId) => {
     setSavedJobs((prevSavedJobs) => {
       const jobIndex = prevSavedJobs.findIndex((job) => job.id === jobId);
       if (jobIndex === -1) {
-        const jobToAdd = job; 
+        const jobToAdd = job;
         return [...prevSavedJobs, { ...jobToAdd, isBookmarked: true }];
       } else {
         return prevSavedJobs.filter((job) => job.id !== jobId);
@@ -52,7 +52,7 @@ const Details = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>; 
+    return <div>Loading...</div>;
   }
 
   if (!job) {
@@ -66,7 +66,7 @@ const Details = () => {
       <section>
         <div className="flex gap-62 p-5 text-[#2F2F2F]">
           {/* Back Bar */}
-          <div className="flex gap-1 ml-20">
+          <div className="flex gap-1 ml-20 cursor-pointer" onClick={() => navigate(`/`)}>
             <MdOutlineArrowBackIos className="mt-1 size-6" color="#2F2F2F" />
             <p className="text-2xl">Back</p>
           </div>
@@ -101,7 +101,7 @@ const Details = () => {
               <div className="flex pt-10 px-5">
                 <div className="flex w-13 h-13">
                   <img
-                    src={job.logo || Logo} 
+                    src={job.logo || Logo}
                     alt={`${job.company} Logo`}
                     className="w-full object-cover rounded-full"
                   />
