@@ -349,4 +349,128 @@ export default App;
 
 ---
 
+## Day 12: Deepening React Knowledge and Building a Tic-Tac-Toe Game
+
+On **Day 12**, we continued our journey into **React** by diving deeper into its core concepts and applying them to build a **Tic-Tac-Toe (XO) game**. This session was particularly exciting as we explored not only conditional logic (like `if-else`) but also computational methods such as `Math.floor` to enhance our game logic. Here's a summary of what we covered:
+
+---
+
+### **Key Concepts Covered:**
+1. **State Management with `useState`**:  
+   - Learned how to use the `useState` hook to manage and update the state of our application dynamically.  
+   - Applied this to track the current player's turn and the state of the game board.
+
+2. **Event Handling in React**:  
+   - Used event handlers like `onClick` to capture user interactions (e.g., clicking a cell in the Tic-Tac-Toe grid).  
+   - Updated the state based on user actions to reflect changes in the UI.
+
+3. **Conditional Rendering**:  
+   - Used conditional logic to determine the winner of the game or if the game ended in a draw.  
+   - Displayed messages like "Player X wins!" or "It's a draw!" based on the game state.
+
+4. **Computational Methods**:  
+   - Leveraged JavaScript's `Math.floor` and other computational methods to enhance game logic, such as generating random moves for a simple AI opponent (optional).  
+
+5. **Component Reusability**:  
+   - Designed the game board as a reusable component, making it easier to maintain and extend.  
+
+---
+
+### **Building the Tic-Tac-Toe Game:**
+We built a simple yet functional Tic-Tac-Toe game using React. Here's an overview of the steps we followed:
+
+1. **Setting Up the Board**:  
+   - Created a 3x3 grid using a 2D array to represent the game board.  
+   - Each cell in the grid was rendered as a button that users could click to place their mark (X or O).
+
+2. **Handling Player Moves**:  
+   - Used `useState` to track the current player (X or O).  
+   - Updated the board state whenever a player clicked an empty cell.
+
+3. **Checking for a Winner**:  
+   - Implemented a function to check for winning conditions (e.g., three X's or O's in a row, column, or diagonal).  
+   - Used conditional logic to determine if the game was over and display the result.
+
+4. **Resetting the Game**:  
+   - Added a "Reset" button to clear the board and restart the game.
+
+---
+
+### **Code Example:**
+Here’s a simplified version of the Tic-Tac-Toe game we built:
+
+```jsx
+import React, { useState } from 'react';
+
+function TicTacToe() {
+  const [board, setBoard] = useState(Array(9).fill(null));
+  const [isXNext, setIsXNext] = useState(true);
+
+  const calculateWinner = (squares) => {
+    const lines = [
+      [0, 1, 2], [3, 4, 5], [6, 7, 8], 
+      [0, 3, 6], [1, 4, 7], [2, 5, 8], 
+      [0, 4, 8], [2, 4, 6], 
+    ];
+
+    for (let line of lines) {
+      const [a, b, c] = line;
+      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+        return squares[a];
+      }
+    }
+    return null;
+  };
+
+  const handleClick = (index) => {
+    if (board[index] || calculateWinner(board)) return;
+
+    const newBoard = [...board];
+    newBoard[index] = isXNext ? 'X' : 'O';
+    setBoard(newBoard);
+    setIsXNext(!isXNext);
+  };
+
+  const winner = calculateWinner(board);
+  const status = winner ? `Winner: ${winner}` : `Next Player: ${isXNext ? 'X' : 'O'}`;
+
+  return (
+    <div className="tic-tac-toe">
+      <h1>Tic-Tac-Toe</h1>
+      <div className="board">
+        {board.map((cell, index) => (
+          <button key={index} onClick={() => handleClick(index)}>
+            {cell}
+          </button>
+        ))}
+      </div>
+      <div className="status">{status}</div>
+      <button onClick={() => setBoard(Array(9).fill(null))}>Reset Game</button>
+    </div>
+  );
+}
+
+export default TicTacToe;
+```
+
+---
+
+### **Highlights:**
+- **Hands-On Learning**: Building the Tic-Tac-Toe game helped us solidify our understanding of React's state management and event handling.  
+- **Computational Logic**: Using methods like `Math.floor` added an extra layer of complexity and fun to the game.  
+- **Problem-Solving**: Debugging and refining the game logic was a great exercise in critical thinking and collaboration.  
+
+---
+
+### **Next Steps:**
+- Explore **React hooks** like `useEffect` to add more advanced features (e.g., a timer or AI opponent).  
+- Learn about **React Router** to build multi-page applications.  
+- Start integrating **backend technologies** like Node.js and Express.js to create full-stack applications.  
+
+---
+
+Day 12 was a fantastic learning experience, and we’re excited to continue building more complex projects with React!  
+
+---
+
 Stay tuned for more updates as we continue exploring React and other full-stack technologies in the BootCamp! 🚀
