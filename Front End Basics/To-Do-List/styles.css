@@ -41,7 +41,7 @@ h1 {
     color: #6C63FF;
 }
 #select-list:hover{
-    cursor: url('./images/cursor\ icon.png'), auto !important;
+    cursor: pointer, auto !important;
     background-color: #6159fa;
 }
 #mode-toggle{
@@ -60,7 +60,7 @@ h1 {
     height: 22px;
 }
 #mode-toggle:hover{
-    cursor: url('./images/cursor\ icon.png'), auto;
+    cursor: pointer, auto;
     background-color: #6159fa;
 }
 .search-div{
@@ -126,7 +126,7 @@ hr {
     border-radius: 2px;
 }
 .checkbox:hover{
-    cursor: url('./images/cursor\ icon.png'), auto;
+    cursor: pointer, auto;
     background-color: lightgray;
 }
 .edit-delete{
@@ -151,16 +151,16 @@ hr {
     color: white;
 }
 #add-button:hover{
-    cursor: url('./images/cursor\ icon.png'), auto;
+    cursor: pointer, auto;
     background-color: #6159fa;
 }
 .edit-button:hover{
-    cursor: url('./images/cursor\ icon.png'), auto;
+    cursor: pointer, auto;
     background-image: url('./images/edit\ colored\ icon.png');
     background-repeat: no-repeat;
 }
 .delete-button:hover{
-    cursor: url('./images/cursor\ icon.png'), auto;
+    cursor: pointer, auto;
     background-image: url('./images/delete\ colored\ icon.png');
     background-repeat: no-repeat;
 }
@@ -207,7 +207,7 @@ hr {
     color: #6C63FF;
 }
 #cancel-button:hover{
-    cursor: url('./images/cursor\ icon.png'), auto;
+    cursor: pointer, auto;
     background-color: lightgray;
 }
 #save-button{
@@ -221,7 +221,7 @@ hr {
     color: white;
 }
 #save-button:hover{
-    cursor: url('./images/cursor\ icon.png'), auto;
+    cursor: pointer, auto;
     background-color: #6159fa;
 }
 .empty-note{
