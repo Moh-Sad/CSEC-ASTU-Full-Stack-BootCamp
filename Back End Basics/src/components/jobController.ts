@@ -1,4 +1,4 @@
-const getJobs = async (req: Request, res: Response) => promise<void>{
+const getJobs = async (req: Request, res: Response): Promise<void> => {
     try {
         const jobs = await Jobs.find();
         res.json(jobs);
@@ -7,4 +7,4 @@ const getJobs = async (req: Request, res: Response) => promise<void>{
     }
     };
 
-export { getJobs };
+export default getJobs;
