@@ -497,6 +497,158 @@ On Day 13, we embarked on an exciting journey into a new project called **Job Sp
 ### Highlights:
 This session was highly practical and hands-on, as we learned how to bridge the gap between design and development. By combining **Figma** for design, **React** for building components, and **Tailwind CSS** for styling, we gained a comprehensive understanding of modern web development workflows. These skills are essential for creating visually appealing and highly functional web applications.
 
+## Day 14: Integrating Backend with Job Sphere Project and Adding Bookmark Features
+
+On **Day 14**, we took a significant step forward in our **Job Sphere** project by integrating a **backend JSON file** to dynamically fetch product data (e.g., job details, images, descriptions) and implemented a **bookmark feature** to allow users to save jobs they're interested in. Here's a detailed breakdown of what we accomplished:
+
+---
+
+### **Key Features Added:**
+1. **Backend Integration with JSON File**:  
+   - Created a **JSON file** to act as a mock backend, storing job data such as:  
+     - Job title  
+     - Company name  
+     - Job description  
+     - Image URL  
+     - Location  
+     - Salary range  
+   - Used **React's `useState` and `useEffect` hooks** to fetch and display this data dynamically in the Job Sphere application.
+
+2. **Bookmark Feature**:  
+   - Added a **bookmark button** for each job listing, allowing users to save jobs they're interested in.  
+   - Used **state management** to toggle the bookmark status (true/false) for each job.  
+   - Stored the bookmark status in the component's state and displayed a visual indicator (e.g., a filled or outlined bookmark icon) based on the user's selection.
+
+3. **Dynamic Rendering of Job Listings**:  
+   - Mapped over the JSON data to render each job listing as a **reusable React component**.  
+   - Ensured the UI updates dynamically when users interact with the bookmark feature.
+
+---
+
+### **Implementation Details:**
+
+#### 1. **Backend JSON File**:
+We created a `jobs.json` file to store job data in a structured format:
+
+```json
+[
+  {
+    "id": 1,
+    "title": "Frontend Developer",
+    "company": "Tech Corp",
+    "description": "Join our team to build amazing user interfaces!",
+    "image": "https://via.placeholder.com/150",
+    "location": "Remote",
+    "salary": "$80,000 - $100,000",
+    "isBookmarked": false
+  },
+  {
+    "id": 2,
+    "title": "Backend Developer",
+    "company": "Code Masters",
+    "description": "Work on scalable server-side applications.",
+    "image": "https://via.placeholder.com/150",
+    "location": "New York, NY",
+    "salary": "$90,000 - $110,000",
+    "isBookmarked": false
+  }
+]
+```
+
+#### 2. **Fetching Data in React**:
+We used the `useEffect` hook to fetch the job data from the JSON file and store it in the component's state:
+
+```jsx
+import React, { useState, useEffect } from 'react';
+import jobsData from './jobs.json'; // Importing the JSON file
+
+function JobSphere() {
+  const [jobs, setJobs] = useState([]);
+
+  useEffect(() => {
+    // Simulate fetching data from a backend
+    setJobs(jobsData);
+  }, []);
+
+  return (
+    <div className="job-sphere">
+      <h1>Job Listings</h1>
+      {jobs.map((job) => (
+        <JobCard key={job.id} job={job} />
+      ))}
+    </div>
+  );
+}
+```
+
+#### 3. **Job Card Component**:
+We created a reusable `JobCard` component to display each job listing and handle the bookmark feature:
+
+```jsx
+function JobCard({ job }) {
+  const [isBookmarked, setIsBookmarked] = useState(job.isBookmarked);
+
+  const toggleBookmark = () => {
+    setIsBookmarked(!isBookmarked);
+  };
+
+  return (
+    <div className="job-card">
+      <img src={job.image} alt={job.title} />
+      <h2>{job.title}</h2>
+      <h3>{job.company}</h3>
+      <p>{job.description}</p>
+      <p><strong>Location:</strong> {job.location}</p>
+      <p><strong>Salary:</strong> {job.salary}</p>
+      <button onClick={toggleBookmark}>
+        {isBookmarked ? 'Bookmarked ✅' : 'Bookmark ❌'}
+      </button>
+    </div>
+  );
+}
+```
+
+#### 4. **Styling with Tailwind CSS**:
+We used **Tailwind CSS** to style the job cards and make the UI visually appealing:
+
+```jsx
+<div className="job-card bg-white shadow-lg rounded-lg p-6 m-4">
+  <img src={job.image} alt={job.title} className="w-24 h-24 rounded-full mx-auto" />
+  <h2 className="text-xl font-bold mt-4">{job.title}</h2>
+  <h3 className="text-lg text-gray-600">{job.company}</h3>
+  <p className="text-gray-700 mt-2">{job.description}</p>
+  <p className="text-gray-600"><strong>Location:</strong> {job.location}</p>
+  <p className="text-gray-600"><strong>Salary:</strong> {job.salary}</p>
+  <button
+    onClick={toggleBookmark}
+    className={`mt-4 px-4 py-2 rounded ${
+      isBookmarked ? 'bg-green-500 text-white' : 'bg-gray-200 text-gray-700'
+    }`}
+  >
+    {isBookmarked ? 'Bookmarked ✅' : 'Bookmark ❌'}
+  </button>
+</div>
+```
+
+---
+
+### **Highlights:**
+- **Dynamic Data Fetching**: Learned how to integrate a backend (even a mock JSON file) to fetch and display data dynamically in a React application.  
+- **Interactive Features**: Implemented a bookmark feature that enhances user interaction and engagement.  
+- **Reusable Components**: Built reusable components like `JobCard` to maintain clean and modular code.  
+- **Tailwind CSS**: Continued leveraging Tailwind CSS for rapid and responsive UI development.  
+
+---
+
+### **Next Steps:**
+- **Persisting Bookmark Data**: Explore ways to persist bookmark data (e.g., using `localStorage` or a backend database).  
+- **Advanced Features**: Add filtering and sorting options for job listings (e.g., by location, salary, or job type).  
+- **Backend Integration**: Replace the mock JSON file with a real backend API (e.g., using Node.js and Express.js).  
+
+---
+
+This session was a fantastic blend of front-end and back-end concepts, bringing us closer to building a full-stack application.
+
 ---
 
 Stay tuned for more updates as we continue exploring React and other full-stack technologies in the BootCamp! 🚀
