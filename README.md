@@ -560,13 +560,12 @@ We used the `useEffect` hook to fetch the job data from the JSON file and store 
 
 ```jsx
 import React, { useState, useEffect } from 'react';
-import jobsData from './jobs.json'; // Importing the JSON file
+import jobsData from './jobs.json'; 
 
 function JobSphere() {
   const [jobs, setJobs] = useState([]);
 
   useEffect(() => {
-    // Simulate fetching data from a backend
     setJobs(jobsData);
   }, []);
 
@@ -645,9 +644,75 @@ We used **Tailwind CSS** to style the job cards and make the UI visually appeali
 - **Advanced Features**: Add filtering and sorting options for job listings (e.g., by location, salary, or job type).  
 - **Backend Integration**: Replace the mock JSON file with a real backend API (e.g., using Node.js and Express.js).  
 
+This session was a fantastic blend of front-end and back-end concepts, bringing us closer to building a full-stack application.
+
 ---
 
-This session was a fantastic blend of front-end and back-end concepts, bringing us closer to building a full-stack application.
+**Day 15: Starting Basic Backend - Integrating Node.js and Express**
+
+On Day 15, we began our journey into backend development by learning how to integrate **Node.js** and **Express.js**. Node.js is a runtime environment that allows us to run JavaScript on the server side, while Express.js is a popular web framework built on top of Node.js, designed to simplify the creation of web applications and APIs.
+
+### Steps to Integrate Node.js and Express:
+1. **Install Node.js**: First, we installed Node.js from the official website (https://nodejs.org). This also installs **npm** (Node Package Manager), which is used to manage dependencies.
+
+2. **Initialize a Node.js Project**: We created a new project folder and initialized it using the command:
+   ```bash
+   npm init -y
+   ```
+   This generated a `package.json` file, which keeps track of project dependencies and scripts.
+
+3. **Install Express**: We installed Express using npm:
+   ```bash
+   npm install express
+   ```
+   This added Express to our project's `node_modules` folder and listed it as a dependency in `package.json`.
+
+4. **Create a Basic Server**: We created an `index.js` file and set up a basic Express server:
+   ```javascript
+   const express = require('express');
+   const app = express();
+   const port = 3000;
+
+   app.get('/', (req, res) => {
+       res.send('Hello, World!');
+   });
+
+   app.listen(port, () => {
+       console.log(`Server running at http://localhost:${port}`);
+   });
+   ```
+   This code creates a server that listens on port 3000 and responds with "Hello, World!" when the root URL (`/`) is accessed.
+
+5. **Run the Server**: We started the server using the command:
+   ```bash
+   node index.js
+   ```
+   Then, we visited `http://localhost:3000` in the browser to see the "Hello, World!" message.
+
+6. **Explore Express Documentation**: To deepen our understanding, we visited the official **Express.js documentation** (https://expressjs.com). The documentation provides detailed explanations of Express features, such as routing, middleware, error handling, and template engines. It also includes examples and best practices for building robust backend applications.
+
+7. **Experiment with Routing**: We experimented with basic routing by adding more routes to our server:
+   ```javascript
+   app.get('/about', (req, res) => {
+       res.send('About Page');
+   });
+
+   app.get('/contact', (req, res) => {
+       res.send('Contact Page');
+   });
+   ```
+   This allowed us to handle different URLs and return specific responses.
+
+8. **Use Middleware**: We explored the concept of middleware, which are functions that process requests before they reach the final route handler. For example, we used the built-in `express.json()` middleware to parse JSON data from requests:
+   ```javascript
+   app.use(express.json());
+   ```
+
+9. **Plan for Future Learning**: We discussed the next steps, such as connecting to a database, handling user authentication, and building RESTful APIs. We also planned to explore advanced Express features like error handling and template engines.
+
+10. **Reflect on the Importance of Backend Development**: We concluded the session by reflecting on the importance of backend development in creating dynamic and interactive web applications. Understanding Node.js and Express is a crucial step toward becoming a full-stack developer.
+
+By the end of Day 15, we had a basic understanding of how to set up a Node.js and Express server, and we were excited to continue exploring backend development in the coming days.
 
 ---
 
