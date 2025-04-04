@@ -648,7 +648,7 @@ This session was a fantastic blend of front-end and back-end concepts, bringing 
 
 ---
 
-**Day 15: Starting Basic Backend - Integrating Node.js and Express**
+##Day 15: Starting Basic Backend - Integrating Node.js and Express**
 
 On Day 15, we began our journey into backend development by learning how to integrate **Node.js** and **Express.js**. Node.js is a runtime environment that allows us to run JavaScript on the server side, while Express.js is a popular web framework built on top of Node.js, designed to simplify the creation of web applications and APIs.
 
@@ -713,6 +713,103 @@ On Day 15, we began our journey into backend development by learning how to inte
 10. **Reflect on the Importance of Backend Development**: We concluded the session by reflecting on the importance of backend development in creating dynamic and interactive web applications. Understanding Node.js and Express is a crucial step toward becoming a full-stack developer.
 
 By the end of Day 15, we had a basic understanding of how to set up a Node.js and Express server, and we were excited to continue exploring backend development in the coming days.
+
+---
+
+## Day 16: Authentication, Authorization, JWT & File Uploads in Backend
+
+### 🔒 Authentication & Authorization
+- **Authentication**: Verifying user identity (login process)
+- **Authorization**: Determining user permissions/access levels
+- **Session vs Token-based** authentication approaches
+
+### 🪙 JSON Web Tokens (JWT)
+- Token structure (header, payload, signature)
+- Stateless authentication benefits
+- Token expiration and refresh strategies
+- Secure storage methods (HTTP-only cookies vs localStorage)
+
+### 📁 File Uploads
+- Handling multipart/form-data
+- Server-side processing and validation
+- Storage options (local filesystem vs cloud storage)
+- Security considerations
+
+## 💻 Implementation
+
+### JWT Setup
+```javascript
+// Token creation
+const token = jwt.sign(
+  { userId: user.id, role: user.role },
+  process.env.JWT_SECRET,
+  { expiresIn: '1h' }
+);
+
+// Auth middleware
+const authenticate = (req, res, next) => {
+  const token = req.cookies.token;
+  if (!token) return res.status(401).send('Access denied');
+  
+  try {
+    const verified = jwt.verify(token, process.env.JWT_SECRET);
+    req.user = verified;
+    next();
+  } catch (err) {
+    res.status(400).send('Invalid token');
+  }
+};
+```
+
+### File Upload Configuration
+```javascript
+const upload = multer({
+  storage: multer.diskStorage({
+    destination: 'uploads/',
+    filename: (req, file, cb) => {
+      cb(null, `${Date.now()}-${file.originalname}`);
+    }
+  }),
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith('image/')) {
+      cb(null, true);
+    } else {
+      cb(new Error('Only image files allowed!'), false);
+    }
+  }
+});
+```
+
+## 🛠️ Features Implemented
+1. User registration with password hashing
+2. Login system with JWT issuance
+3. Protected routes with role-based access
+4. File upload endpoints with:
+   - Size and type validation
+   - Secure storage handling
+   - Access URL generation
+
+## 🧠 Key Learnings
+- Importance of proper password hashing
+- Stateless authentication advantages
+- Secure token handling best practices
+- File upload security considerations
+- Middleware architecture patterns
+
+## 🚧 Challenges Faced
+1. Token expiration handling
+2. Cross-origin cookie issues
+3. File type validation edge cases
+4. Role hierarchy implementation
+5. Secure file access patterns
+
+## 🔜 Next Steps
+- Implement OAuth integration
+- Add advanced file processing (resizing, etc.)
+- Set up rate limiting for auth endpoints
+- Explore production security best practices
+- Implement refresh token rotation
 
 ---
 
