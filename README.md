@@ -805,11 +805,107 @@ const upload = multer({
 5. Secure file access patterns
 
 ## 🔜 Next Steps
-- Implement OAuth integration
-- Add advanced file processing (resizing, etc.)
-- Set up rate limiting for auth endpoints
-- Explore production security best practices
-- Implement refresh token rotation
+- Introduction to Next.js 
+
+---
+
+## Day 17: Introduction to Next.js and Its Core Concepts
+
+On **Day 17**, we explored **Next.js**, a powerful React framework for building modern web applications. We compared it with traditional React and learned about its unique features like file-based routing, middleware, and hybrid rendering. Here’s a detailed breakdown:
+
+---
+
+### **Key Topics Covered:**
+1. **Next.js vs React**:  
+   - **React**: A UI library for building components (client-side rendering by default).  
+   - **Next.js**: A framework built on React that adds server-side rendering (SSR), static site generation (SSG), and more out-of-the-box features.  
+
+2. **File-Based Routing**:  
+   - Next.js uses the `pages` directory to automatically create routes.  
+   - Example:  
+     - `pages/index.js` → `/`  
+     - `pages/about.js` → `/about`  
+     - `pages/blog/[id].js` → Dynamic routes (e.g., `/blog/123`).  
+
+3. **Middleware**:  
+   - Functions that run before a request is completed (e.g., authentication, logging).  
+   - Example: Redirecting users based on session checks.  
+   - File: `middleware.js` in the root directory.  
+
+4. **Rendering Methods**:  
+   - **Client-Side Routing**: Traditional React behavior (handled by `next/link` for SPA-like navigation).  
+   - **Server-Side Rendering (SSR)**: Pages are rendered on the server for each request (`getServerSideProps`).  
+   - **Static Site Generation (SSG)**: Pages pre-rendered at build time (`getStaticProps`).  
+
+5. **API Routes**:  
+   - Next.js allows creating backend APIs within the same project (e.g., `pages/api/hello.js` becomes `/api/hello`).  
+
+---
+
+### **Code Examples:**
+
+#### 1. **File-Based Routing** (`pages/about.js`):
+```jsx
+export default function About() {
+  return <h1>About Page</h1>;
+}
+```
+
+#### 2. **Dynamic Route** (`pages/blog/[id].js`):
+```jsx
+export default function BlogPost({ post }) {
+  return (
+    <div>
+      <h1>{post.title}</h1>
+      <p>{post.content}</p>
+    </div>
+  );
+}
+
+export async function getServerSideProps(context) {
+  const { id } = context.params;
+  const res = await fetch(`https://api.example.com/posts/${id}`);
+  const post = await res.json();
+  return { props: { post } };
+}
+```
+
+#### 3. **Middleware** (`middleware.js`):
+```javascript
+import { NextResponse } from 'next/server';
+
+export function middleware(request) {
+  if (!request.cookies.has('auth')) {
+    return NextResponse.redirect('/login');
+  }
+  return NextResponse.next();
+}
+```
+
+#### 4. **Client-Side Navigation**:
+```jsx
+import Link from 'next/link';
+
+function Home() {
+  return (
+    <Link href="/about">
+      <a>Go to About Page</a>
+    </Link>
+  );
+}
+```
+
+---
+
+### **Highlights:**
+- **Performance**: Next.js optimizes apps with SSR/SSG, improving SEO and load times.  
+- **Simplicity**: File-based routing eliminates manual route configuration.  
+- **Full-Stack Capabilities**: API routes let you build backend logic without a separate server.  
+
+---
+
+### **Next Steps:**
+- Explore **Next.js authentication** (e.g., NextAuth.js).  
 
 ---
 
